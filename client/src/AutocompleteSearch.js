@@ -49,13 +49,13 @@ class AutocompleteSearch extends React.Component{
       if((e.key === 'ArrowUp') && (selected > 0)) 
         this.setState((prevState) => {
           let selected = prevState.keySelectedOption - 1
-          if (selected*40 < suggestionsBox.scrollTop) suggestionsBox.scrollBy(0, -40)
+          if (selected*45 < suggestionsBox.scrollTop) suggestionsBox.scrollBy(0, -45)
           return {keySelectedOption: selected}
         })     
       if((e.key === 'ArrowDown') && (selected < length - 1)) 
         this.setState((prevState) => {
           let selected = prevState.keySelectedOption + 1     
-          if ((selected+1)*40 > suggestionsBox.scrollTop + 200) suggestionsBox.scrollBy(0, 40)    
+          if ((selected+1)*45 > suggestionsBox.scrollTop + 225) suggestionsBox.scrollBy(0, 45)    
           return {keySelectedOption: selected}
         })
       if(e.key === 'Enter' && selected !== -1) this.keySelectOption()
@@ -65,7 +65,7 @@ class AutocompleteSearch extends React.Component{
   }
 
   checkValidity = (suggestions = this.state.suggestions) => {
-    if (!this.state.isValid && suggestions.length !== 0){ 
+    if (!this.state.isValid && suggestions.length !==  0){ 
       let isValid = false
       let validIndex = -1
       let input = this.state.value.toLowerCase()

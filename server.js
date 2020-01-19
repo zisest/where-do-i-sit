@@ -28,10 +28,11 @@ app.get('/', (req, res) => res.sendFile('index.html', { root: rootPath }))
 app.get('/api/getStations', (req, res) => {
     let query = req.query.s.toLowerCase()
     console.log('[/api/getStations]: query is: ' + query)
-    let result = stationsData.filter(station => {
-        let st = station.toLowerCase()
-        return st.includes(query)
+    let filtered = stationsData.filter(station => {
+        let st = station.title.toLowerCase()
+        return st.startsWith(query)
     })
+    result = filtered.map(station => station.title)
     console.log('[/api/getStations]: result is: ' + result)
     res.send(result)
 })
