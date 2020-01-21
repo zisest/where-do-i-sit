@@ -6,6 +6,8 @@
     --color-text-field-blue: #eaf1fa;
     --color-button-hover: rgb(56, 73, 97);
     --color-li-hover: #F2F3F4;
+    --color-red-logo: #e41e13;
+    --color-grey-lighter: #7F8998;
   }
 
 body {
@@ -22,6 +24,10 @@ body {
     height: 100%;
 }
 
+a{
+    text-decoration: none;
+    color: var(--color-grey-dark)
+}
 .header {
     padding: 0px 30px;
     background-color: white;
@@ -41,8 +47,9 @@ body {
 
 .main-area{
     display: flex;
-    flex-direction: column;
+    /*flex-direction: column;*/
     justify-content: center;
+    
     height: calc(100% - 100px - 60px); /*full height - header height - verical padding*/
 
     padding: 20px 20px 40px 20px;
@@ -161,4 +168,143 @@ body {
 }
 .autocomplete-search__suggestion_selected{
     background-color: rgb(195, 199, 202)
+}
+
+
+.station-timetable{
+    width: 800px;
+    
+
+    
+}
+.station-timetable__grid{
+    display: grid;
+    grid-template-rows: 100px auto;
+    grid-gap: 8px;
+}
+
+.station-timetable__header{
+    padding: 8px;
+    background-color: white;
+    border-radius: 8px 8px 0px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.station-timetable__go-back{
+    font-size: 12px;
+    color: var(--color-grey-light);
+    width: 184px;
+    display: flex;
+}
+.station-timetable__go-back:hover{
+    cursor: pointer;
+}
+.station-timetable__go-back:before{
+    content: url('/images/go-back-arrow.svg');
+    padding: 9px 8px 0px 0;
+}
+
+.station-timetable__header-info{
+    text-align: right;
+    margin: auto 30px auto auto;
+}
+.station-timetable__header-info > hr{
+    height: 3px;
+    width: 60px;
+    background-color: var(--color-red-logo);
+    border: none;
+    margin: 3px 0px 5px auto;
+}
+.station-timetable__station-name{
+    font-size: 28px;
+    font-weight: 500;
+}
+.station-timetable__current-time{
+    color: var(--color-grey-light);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+
+.station-timetable__body{
+    background-color: white;
+    border-radius: 0px 0px 8px 8px;
+}
+.station-timetable__body:hover{
+    cursor: pointer;
+}
+
+.timetable-row{
+    height: 50px;
+    border-bottom: 1px solid #c4c4c4;
+    padding: 15px 20px 15px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/*
+.timetable-row:last-child{
+    border: none;
+}
+*/
+
+.timetable-row__train-info{
+    display: grid;
+    grid-template-columns: 62px auto;
+    grid-gap: 10px;
+}
+.timetable-row__train-type{
+    display: grid;
+    grid-template-rows: 14.4px auto 14.4px;
+    
+    color: var(--color-red-logo);
+    font-size: 12px;
+}
+.timetable-row__train-type-icon{
+    display: flex;
+    justify-content: center;
+    margin-top: 3px;
+}
+
+.timetable-row__train-name{
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    width: 240px;
+}
+
+.timetable-row__departure-time{
+    font-weight: 500;
+}
+.timetable-row__stops{
+    font-size: 12px;
+    color: var(--color-grey-light);
+    max-width: 180px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.timetable-row__train-route-info{
+    width: 180px;
+}
+.timetable-row__seats{
+    font-weight: 500;
+    width: 100px;
+}
+.timetable-row__seats > svg{
+    margin-left: 8px;
+}
+
+.station-timetable__show-more{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timetable-row:hover{
+    background-color: #e7e7e7;
 }

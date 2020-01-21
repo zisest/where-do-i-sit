@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
 
+import {BrowserRouter as Router, Redirect } from 'react-router-dom';
+
 class AutocompleteSearch extends React.Component{
   constructor(props){
     super(props)
@@ -7,7 +9,8 @@ class AutocompleteSearch extends React.Component{
       value: '',
       suggestions: [],
       keySelectedOption: -1,
-      isValid: false
+      isValid: false,
+      isSubmitted: false
     }
     this.fetchTimer = ''
   }
@@ -30,7 +33,6 @@ class AutocompleteSearch extends React.Component{
   }
 
   handleClick = (e) => {
-    console.log(e.target.innerHTML)
     this.setState({value: e.target.innerHTML, isValid: true, suggestions: [], keySelectedOption: -1})
   }
 
@@ -65,6 +67,7 @@ class AutocompleteSearch extends React.Component{
   }
 
   checkValidity = (suggestions = this.state.suggestions) => {
+    console.log('validiry check')
     if (!this.state.isValid && suggestions.length !==  0){ 
       let isValid = false
       let validIndex = -1
@@ -81,8 +84,10 @@ class AutocompleteSearch extends React.Component{
   }
 
   handleSubmit = () => {
-    if (this.state.isValid) console.log(this.state.value)
-    else if (this.checkValidity()) console.log(this.state.value)
+    if (this.state.isValid || this.checkValidity()) {
+      console.log('Submitted' + this.state.value)
+      this.setState({isSubmitted: true})
+    }
     
 
     
@@ -105,7 +110,7 @@ class AutocompleteSearch extends React.Component{
       <div className="autocomplete-search">
         <label htmlFor="autocomplete-search">Укажите пункт отправления</label>
         <div>
-        <input type="text" id="autocomplete-search" placeholder="Ленинский проспект"
+        <input type="text" id="autocomplete-search" placeholder="Ленинский проспект" autoComplete="off"
           onChange={this.handleChange} value={this.state.value} onKeyDown={this.handleKeyDown} />
         {suggestions}
         </div>
@@ -113,6 +118,7 @@ class AutocompleteSearch extends React.Component{
       <div className="choose-station-window__button">
           <button onClick={this.handleSubmit}>Показать поезда</button>
       </div>
+      {this.state.isSubmitted && <Redirect to={"/timetable?station=" + this.state.value} />}
       </Fragment>
     )
   }
