@@ -60,7 +60,9 @@ app.get('/api/getTimetable', (req, res) => {
             let upcoming = yandexRes.schedule.filter(t => Date.parse(t.departure) > currentTS)
             let requested = upcoming.filter((t, index) => (index >= fromIndex) && (index <= toIndex))
             let result = requested.map(t => {
-                return {
+                let toSend = {}
+                toSend = (trainSeatsData[t.thread.uid] !== undefined) ?
+                {
                     train_id: t.thread.uid,
                     train_number: t.thread.number,
                     train_name: t.thread.title,
@@ -68,7 +70,17 @@ app.get('/api/getTimetable', (req, res) => {
                     departure_time: t.departure,
                     stops: t.stops,
                     free_seats: trainSeatsData[t.thread.uid].free_seats
-                }
+                } :
+                {
+                    train_id: t.thread.uid,
+                    train_number: t.thread.number,
+                    train_name: t.thread.title,
+                    train_type: t.thread.transport_subtype.title,
+                    departure_time: t.departure,
+                    stops: t.stops,
+                    free_seats: -1
+                } 
+                return toSend
             })
             res.send(JSON.stringify(result))
             console.log(JSON.stringify(result))
@@ -81,6 +93,16 @@ app.get('/api/getTimetable', (req, res) => {
     //res.send(stationCode)
 })
 
+app.get('/api/getDetails', (req, res) => {
+    let query = req.query.t    
+    console.log('[/api/getDetails]: query is: ' + query)    
+    if (trainSeatsData[query] !== undefined){               
+        res.send(JSON.stringify({free_seats_detailed: trainSeatsData[query].cars}))
+        console.log(JSON.stringify({free_seats_detailed: trainSeatsData[query].cars}))      
+    } else {
+        res.send(JSON.stringify({'error': 'We can\'t seem to find the train you are looking for'}))
+    }
+})
 
 
 function parseDate(dateObj){

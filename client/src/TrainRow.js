@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
-import { ReactComponent  as TrainType } from './svg/TrainType.svg'
-import { ReactComponent as Seat } from './svg/Seat.svg'
+import { ReactComponent  as TrainType } from './images/TrainType.svg'
+import { ReactComponent as Seat } from './images/Seat.svg'
+import TrainDetails from './TrainDetails.js'
 //import bigInt from 'big-integer'
 
 class TrainRow extends React.Component{  
   constructor(props){
     super(props)   
     this.state = {
-      
+      isExpanded: false
     }
   }
 
@@ -25,12 +26,18 @@ class TrainRow extends React.Component{
     return {seatsWord: word, seatsColor: color}
   }
 
+  handleClick = () => {
+    this.setState({isExpanded: true})
+  }
+
+
   render(){    
     let trainTypeColor = (this.props.train_type !== 'Пригородный поезд') ? 'var(--color-red-logo)' : 'var(--color-grey-lighter)'
     let { seatsWord, seatsColor } = this.evaluateSeats(this.props.free_seats)
 
     return(
-      <div className="timetable-row" id={this.props.train_id}>
+      <Fragment>
+      <div className="timetable-row" id={this.props.train_id} onClick={this.handleClick}>
         <div className="timetable-row__train-info">
           <div className="timetable-row__train-type">
             <span>{(this.props.train_type !== 'Пригородный поезд') && this.props.train_type}</span>
@@ -44,6 +51,11 @@ class TrainRow extends React.Component{
         </div>         
         <div className="timetable-row__seats" style={{color: seatsColor}}>{this.props.free_seats + ' ' + seatsWord}<Seat fill={seatsColor} /> </div>
       </div>
+      {this.state.isExpanded && 
+        <div className={this.state.isExpanded ? "train-details__container_expanded":"train-details__container"}>
+          <TrainDetails {...this.props}/>
+        </div>}
+      </Fragment>
     )
   }
   

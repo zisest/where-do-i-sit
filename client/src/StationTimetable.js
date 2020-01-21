@@ -1,8 +1,7 @@
 import React from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import TrainRow from './TrainRow'
-import bigInt from 'big-integer'
-import { ReactComponent as ShowMore } from './svg/ShowMore.svg'
+import { ReactComponent as ShowMore } from './images/ShowMore.svg'
 
 class StationTimetable extends React.Component{  
   constructor(props){

@@ -6,7 +6,7 @@ import StationTimetable from './StationTimetable'
 
 import './styles/App.css' 
 
-import {ReactComponent as Logo} from './svg/Logo.svg'
+import {ReactComponent as Logo} from './images/Logo.svg'
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
