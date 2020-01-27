@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "nodemon": "nodemon server.js --ignore client/"
   },
   "author": "Nikita Antonov",
   "license": "SEE LICENSE IN LICENSE",

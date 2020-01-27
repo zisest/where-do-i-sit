@@ -11,7 +11,8 @@ class StationTimetable extends React.Component{
       currentTime: '',
       trainsData: [],
       errors: [],
-      rowsShown: 0
+      rowsShown: 0,
+      expandedRow: -1
 
     }
   }
@@ -79,11 +80,16 @@ class StationTimetable extends React.Component{
     })
   }
 
+  handleExpand = (id) => {
+    this.setState({expandedRow: id})
+  }
+
   
 
   render(){
     let invalidQuery = (this.state.shouldRedirect) ? <Redirect to="/" /> : ''
-    let trains = this.state.trainsData.map((train, index) => <TrainRow {...train} key={index} />)
+    let trains = this.state.trainsData.map((train, index) => 
+      <TrainRow {...train} key={index} isExpanded={this.state.expandedRow === train.train_id} handleExpand={this.handleExpand} />)
 
     return(
       <div className="station-timetable">

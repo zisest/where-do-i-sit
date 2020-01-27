@@ -24,6 +24,7 @@ body {
     height: 100%;
 }
 
+
 a{
     text-decoration: none;
     color: var(--color-grey-dark)
@@ -61,12 +62,16 @@ h3 {
 
 
 .main-area{
+    /*fixing "jumping scrollbar"*/
+    margin-left: calc(100vw - 100%);
+    margin-right: 0;
+
     display: flex;
     /*flex-direction: column;*/
     justify-content: center;
     
+    
     height: calc(100% - 100px - 60px); /*full height - header height - verical padding*/
-
     padding: 20px 20px 40px 20px;
 }
 .choose-station-window{
@@ -358,6 +363,7 @@ h3 {
 }
 .train-details__direction2{
     text-align: right;
+    justify-content: flex-end;
 }
 .train-details__direction2 > div{
     margin-left: 10px;
@@ -385,14 +391,27 @@ h3 {
 .train-details__free-seats svg{
     margin-right: 5px;
 }
+
 /*
-.train-details__container{
+animations start
+*/
+.train-details__animation-enter {
     max-height: 0;
-    transition: max-height 0.15s ease-out;
+    opacity: 0.01;
     overflow: hidden;
-}
-.train-details__container_expanded{
+}  
+.train-details__animation-enter.train-details__animation-enter-active {
+    transition: 300ms ease-in;
+    opacity: 1;
     max-height: 330px;
-    transition: max-height 0.25s ease-in;
-    background: white;
-}*/
+}  
+.train-details__animation-leave {
+    max-height: 330px;
+    opacity: 1;
+}  
+.train-details__animation-leave.train-details__animation-leave-active {
+    max-height: 0;
+    opacity: 0.01;
+    transition: 300ms ease-in;
+}
+  /*animations end*/

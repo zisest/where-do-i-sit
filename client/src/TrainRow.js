@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { CSSTransitionGroup } from 'react-transition-group'
 
 import { ReactComponent  as TrainType } from './images/TrainType.svg'
 import { ReactComponent as Seat } from './images/Seat.svg'
@@ -8,9 +9,7 @@ import TrainDetails from './TrainDetails.js'
 class TrainRow extends React.Component{  
   constructor(props){
     super(props)   
-    this.state = {
-      isExpanded: false
-    }
+    
   }
 
 
@@ -26,8 +25,8 @@ class TrainRow extends React.Component{
     return {seatsWord: word, seatsColor: color}
   }
 
-  handleClick = () => {
-    this.setState({isExpanded: true})
+  handleClick = (e) => {
+    this.props.handleExpand(e.currentTarget.id)
   }
 
 
@@ -51,10 +50,14 @@ class TrainRow extends React.Component{
         </div>         
         <div className="timetable-row__seats" style={{color: seatsColor}}>{this.props.free_seats + ' ' + seatsWord}<Seat fill={seatsColor} /> </div>
       </div>
-      {this.state.isExpanded && 
-        <div className={this.state.isExpanded ? "train-details__container_expanded":"train-details__container"}>
-          <TrainDetails {...this.props}/>
-        </div>}
+      <CSSTransitionGroup
+          transitionName="train-details__animation"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}>
+        {this.props.isExpanded && <TrainDetails {...this.props} /> }
+      </CSSTransitionGroup>
+      
+        
       </Fragment>
     )
   }

@@ -24,6 +24,7 @@ class TrainDetails extends React.Component{
         }
       })
   }
+ 
 
   evaluateSeats = (seats) => {
     let word = ''
@@ -69,9 +70,8 @@ class TrainDetails extends React.Component{
           <div className="train-details__train-picture">
             <img alt='A train' src={trainPic}></img>
           </div>
-        </div>
-        
-      </div>
+        </div>        
+      </div>      
     )
   }
   

@@ -61,6 +61,7 @@ class AutocompleteSearch extends React.Component{
           return {keySelectedOption: selected}
         })
       if(e.key === 'Enter' && selected !== -1) this.keySelectOption()
+      if(e.key === 'Enter' && length === 1 && selected === -1) this.setState({keySelectedOption: 0}, ()=>{this.keySelectOption()})
     } else {
       if(e.key === 'Enter') this.handleSubmit()
     }    
