@@ -13,12 +13,16 @@ class StationTimetable extends React.Component{
       errors: [],
       rowsShown: 0,
       expandedRow: -1
-
     }
+    this.time = ''
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.time)
   }
 
   componentDidMount(){
-    setInterval(() => {
+    this.time = setInterval(() => {
       let time = new Date()
       let currentTime = ("0" + time.getHours()).slice(-2) + ":" + 
       ("0" + time.getMinutes()).slice(-2) + ":" + 
@@ -45,17 +49,7 @@ class StationTimetable extends React.Component{
       })
     }
   }
-/*
-  decodeCarLayout(decimal, car){ 
-    const carSizes = { "car1": 67, "car2": 103, "car3": 101, "car4": 101, "car5": 67 }
-    let totalSeats = carSizes[car]
-    let bin = bigInt(decimal).toString(2)
-    while (bin.length < totalSeats){
-      bin = '0' + bin    
-    }
-    let binArray = Array.from(bin)
-    return binArray
-  }*/
+
 
   handleRequestMore = () => {
     let fromIndex = this.state.rowsShown

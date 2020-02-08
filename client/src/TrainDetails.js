@@ -1,16 +1,29 @@
 import React from 'react'
-//import bigInt from 'big-integer'
 import { ReactComponent as DirectionLeft } from './images/DirectionLeft.svg'
 import { ReactComponent as DirectionRight } from './images/DirectionRight.svg'
 import trainPic from './images/train.png'
 import { ReactComponent as Seat } from './images/Seat.svg'
+
+import Gallery from './Gallery'
+import CarScheme from './CarScheme'
+
+import { ReactComponent as SchemeLegendSeat } from './images/car_schemes/legend/SchemeLegendSeat.svg'
+import { ReactComponent as SchemeLegendFoldingSeats } from './images/car_schemes/legend/SchemeLegendFoldingSeats.svg'
+
+import Car1 from './images/car_schemes/car1.svg.js'
+import Car2  from './images/car_schemes/car2.svg.js'
+import Car3  from './images/car_schemes/car3.svg.js'
+import Car4  from './images/car_schemes/car4.svg.js'
+import Car5  from './images/car_schemes/car5.svg.js'
+const Cars = [Car1, Car2, Car3, Car4, Car5]
 
 class TrainDetails extends React.Component{  
   constructor(props){
     super(props)   
     this.state = {
       cars: {},
-      errors: []
+      errors: [],
+      showSchemes: false
     }
   }
 
@@ -25,7 +38,10 @@ class TrainDetails extends React.Component{
       })
   }
  
-
+  handleClick = () => {
+    this.setState({showSchemes: true})
+  }
+  
   evaluateSeats = (seats) => {
     let word = ''
     switch(seats % 10){
@@ -39,14 +55,36 @@ class TrainDetails extends React.Component{
   }
 
   render(){        
-   
+    
     let carsData = this.state.cars
+    let carSchemes = []
     let cars = Object.keys(carsData).map((car, index) => {
       let { seatsWord, seatsColor } = this.evaluateSeats(carsData[car].free_seats)
-      return <div id={car} key={index} style={{color: seatsColor}}>
+      carSchemes.push(<CarScheme carSvg={Cars[index]} carNum={index + 1} carLayout={carsData[car].layout} key={index} />)
+      return <div id={car} key={index} style={{color: seatsColor}} onClick={this.handleClick}>
         <Seat fill={seatsColor} />{carsData[car].free_seats + ' ' + seatsWord}
         </div>
     })
+
+    let carsSeatsData = <div className="train-details__cars-seats-data">
+        <div className="train-details__free-seats">
+          {cars}
+        </div>
+        <div className="train-details__train-picture">
+          <img alt='A train' src={trainPic}></img>
+        </div>
+      </div> 
+    
+    let carSchemesContainer = <div className="train-details__car-schemes">
+        <div className="train-details__legend">
+          <div><div><SchemeLegendSeat /></div><div>место<br/>свободно</div></div>
+          <div><div><SchemeLegendSeat fill="#E41E13" /></div><div>место<br/>занято</div></div>
+          <div><div><SchemeLegendFoldingSeats /></div><div>складные<br/>сидения</div></div>
+        </div>
+        <Gallery>
+          {carSchemes}
+        </Gallery>
+      </div>
 
     return(
       <div className="train-details">
@@ -63,14 +101,7 @@ class TrainDetails extends React.Component{
             <div><DirectionRight /></div>
           </div>
         </div>
-        <div className="train-details__cars-seats-data">
-          <div className="train-details__free-seats">
-            {cars}
-          </div>
-          <div className="train-details__train-picture">
-            <img alt='A train' src={trainPic}></img>
-          </div>
-        </div>        
+        {this.state.showSchemes ? carSchemesContainer : carsSeatsData} 
       </div>      
     )
   }

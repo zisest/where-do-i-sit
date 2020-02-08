@@ -1,10 +1,9 @@
 import React, { Fragment } from 'react'
-import { CSSTransitionGroup } from 'react-transition-group'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 import { ReactComponent  as TrainType } from './images/TrainType.svg'
 import { ReactComponent as Seat } from './images/Seat.svg'
 import TrainDetails from './TrainDetails.js'
-//import bigInt from 'big-integer'
 
 class TrainRow extends React.Component{  
   constructor(props){
@@ -50,13 +49,9 @@ class TrainRow extends React.Component{
         </div>         
         <div className="timetable-row__seats" style={{color: seatsColor}}>{this.props.free_seats + ' ' + seatsWord}<Seat fill={seatsColor} /> </div>
       </div>
-      <CSSTransitionGroup
-          transitionName="train-details__animation"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}>
-        {this.props.isExpanded && <TrainDetails {...this.props} /> }
-      </CSSTransitionGroup>
-      
+      <CSSTransition timeout={300} classNames="train-details__animation" in={this.props.isExpanded}>
+        <div>{this.props.isExpanded && <TrainDetails {...this.props} /> }</div>
+      </CSSTransition>
         
       </Fragment>
     )
