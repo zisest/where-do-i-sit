@@ -20,8 +20,16 @@ class AutocompleteSearch extends React.Component{
     if (this.state.value.length > 2){
       this.fetchTimer = setTimeout(() => {      
         fetch('/api/getStations?s=' + this.state.value)
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) {
+            throw res.status
+          }
+          return res.json()
+        })
         .then(res => this.setState({suggestions: res}, () => this.checkValidity(res)))
+        .catch(err => {
+          alert(err.toString() + ': No connection') //CHANGE
+        })
       }, 500);
     } else {
       this.setState({suggestions: []});

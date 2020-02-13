@@ -47,7 +47,7 @@ app.get('/api/getTimetable', (req, res) => {
 
     console.log('[/api/getTimetable]: query is: ' + query, fromIndex, toIndex)
     stationsData.forEach(station => {
-        if (station.title.toLowerCase() === query) stationCode = station.codes.yandex_code
+        if (station.title.toLowerCase() === query) stationCode = station.codes.yandex_code        
     });
     if (stationCode !== ''){
         let currentTS = Date.now()
@@ -82,15 +82,21 @@ app.get('/api/getTimetable', (req, res) => {
                 } 
                 return toSend
             })
+            if (req.query.initial === 'true') {
+                console.log('initial')
+                let stName = {"stationName": yandexRes.station.title}
+                result.push(stName)
+            }
             res.send(JSON.stringify(result))
-            console.log(JSON.stringify(result))
-            
+            console.log(JSON.stringify(result))            
+        })
+        .catch(err => {
+            console.error(err)
+            res.sendStatus(500)
         })
     } else {
-        res.send(JSON.stringify({'error': 'We can\'t seem to find the station you are looking for'}))
+        res.sendStatus(400)
     }
-    //console.log('[/api/getStations]: result is: ' + stationCode)
-    //res.send(stationCode)
 })
 
 app.get('/api/getDetails', (req, res) => {
@@ -100,7 +106,7 @@ app.get('/api/getDetails', (req, res) => {
         res.send(JSON.stringify({free_seats_detailed: trainSeatsData[query].cars}))
         console.log(JSON.stringify({free_seats_detailed: trainSeatsData[query].cars}))      
     } else {
-        res.send(JSON.stringify({'error': 'We can\'t seem to find the train you are looking for'}))
+        res.sendStatus(400)
     }
 })
 

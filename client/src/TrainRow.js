@@ -20,6 +20,9 @@ class TrainRow extends React.Component{
       case 2: case 3: case 4: word = 'места'; break;
       default: word = ''     
     }
+    switch(seats){
+      case 11: case 12: case 13: case 14: word = 'мест'; break;
+    }
     let color = (seats > 75) ? 'var(--color-grey-dark)' : 'var(--color-red-logo)'
     return {seatsWord: word, seatsColor: color}
   }

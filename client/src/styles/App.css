@@ -542,3 +542,21 @@ animations start
 .car-scheme > svg{
     width: 100%;
 }
+
+/* start loading... spinner*/
+.loader {
+    margin: 20px auto;
+    border: 0.25em solid #f3f3f3; 
+    border-top: 0.25em solid #546276;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+/*end*/

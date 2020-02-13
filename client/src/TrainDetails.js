@@ -32,13 +32,23 @@ class TrainDetails extends React.Component{
 
   componentDidMount(){
     fetch('/api/getDetails?t=' + this.props.train_id)
-      .then(res => res.json())
       .then(res => {
-        if (res.error !== undefined) this.setState({errors: res})
-        else {
-          this.setState({cars: res.free_seats_detailed})          
+        if (!res.ok) {
+          throw res.status
         }
+        return res.json()
       })
+      .then(res => {
+        if (res.error !== undefined) throw res.error        
+        this.setState({cars: res.free_seats_detailed}) 
+      })
+      .catch(err => {
+        this.setState(prevState => {
+          let st = prevState      
+          st.errors.push(err.toString())
+          return st
+        })
+      }) 
   }
  
   handleClick = (e) => {
@@ -53,6 +63,9 @@ class TrainDetails extends React.Component{
       case 1: word = 'место'; break;
       case 2: case 3: case 4: word = 'места'; break;
       default: word = ''     
+    }
+    switch(seats){
+      case 11: case 12: case 13: case 14: word = 'мест'; break;
     }
     let color = (seats > 25) ? 'var(--color-grey-dark)' : 'var(--color-red-logo)'
     return {seatsWord: word, seatsColor: color}

@@ -1,7 +1,7 @@
 import React from 'react'
 const carSvg = (carLayout) => <svg width="694" height="100" viewBox="0 0 694 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0)">
-<path d="M672 11H21C15.4772 11 11 15.4772 11 21V80C11 85.5229 15.4772 90 21 90H672C677.523 90 682 85.5229 682 80V21C682 15.4772 677.523 11 672 11Z" stroke="#36495C" stroke-width="2"/>
+<g clipPath="url(#clip0)">
+<path d="M672 11H21C15.4772 11 11 15.4772 11 21V80C11 85.5229 15.4772 90 21 90H672C677.523 90 682 85.5229 682 80V21C682 15.4772 677.523 11 672 11Z" stroke="#36495C" strokeWidth="2"/>
 <rect x="22" y="15" width="14" height="10" style={{fill: (carLayout[0] === '1') ? '#E41E13' : '#546276'}} rx="2" fill="#546276" id="seat_3_1"/>
 <rect x="22" y="26" width="14" height="10" style={{fill: (carLayout[1] === '1') ? '#E41E13' : '#546276'}} rx="2" fill="#546276" id="seat_3_2"/>
 <rect x="22" y="64" width="14" height="10" style={{fill: (carLayout[2] === '1') ? '#E41E13' : '#546276'}} rx="2" fill="#546276" id="seat_3_3"/>
@@ -127,10 +127,10 @@ const carSvg = (carLayout) => <svg width="694" height="100" viewBox="0 0 694 100
 <path d="M410.305 31.6523V20.4023H409.074V20.0566C409.074 18.9199 408.148 18 407.012 18H403.988C402.852 18 401.92 18.9199 401.92 20.0566V20.4023H400.689V31.6523H410.305ZM403.098 20.0566C403.098 19.5703 403.502 19.1719 403.994 19.1719H407.018C407.504 19.1719 407.908 19.5645 407.908 20.0566V20.4023H403.103V20.0566H403.098Z" fill="#36495C"/>
 <path d="M411.248 20.4023H410.891V31.6523H411.248C412.215 31.6523 413 30.8203 413 29.8535V22.1191C413 21.1523 412.215 20.4023 411.248 20.4023Z" fill="#36495C"/>
 <path d="M400.109 20.4023H399.764C398.797 20.4023 398 21.1523 398 22.1191V29.8535C398 30.8203 398.797 31.6523 399.764 31.6523H400.109V20.4023Z" fill="#36495C"/>
-<line x1="170" y1="16" x2="203" y2="16" stroke="#36495C" stroke-width="2" stroke-linecap="round"/>
-<line x1="495" y1="16" x2="528" y2="16" stroke="#36495C" stroke-width="2" stroke-linecap="round"/>
-<line x1="495" y1="84" x2="528" y2="84" stroke="#36495C" stroke-width="2" stroke-linecap="round"/>
-<line x1="170" y1="84" x2="203" y2="84" stroke="#36495C" stroke-width="2" stroke-linecap="round"/>
+<line x1="170" y1="16" x2="203" y2="16" stroke="#36495C" strokeWidth="2" strokeLinecap="round"/>
+<line x1="495" y1="16" x2="528" y2="16" stroke="#36495C" strokeWidth="2" strokeLinecap="round"/>
+<line x1="495" y1="84" x2="528" y2="84" stroke="#36495C" strokeWidth="2" strokeLinecap="round"/>
+<line x1="170" y1="84" x2="203" y2="84" stroke="#36495C" strokeWidth="2" strokeLinecap="round"/>
 </g>
 <defs>
 <clipPath id="clip0">
