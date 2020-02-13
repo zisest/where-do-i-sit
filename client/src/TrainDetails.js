@@ -1,7 +1,9 @@
 import React from 'react'
 import { ReactComponent as DirectionLeft } from './images/DirectionLeft.svg'
 import { ReactComponent as DirectionRight } from './images/DirectionRight.svg'
-import trainPic from './images/train.png'
+import leftCar from './images/left-car.png'
+import middleCar from './images/middle-car.png'
+import rightCar from './images/right-car.png'
 import { ReactComponent as Seat } from './images/Seat.svg'
 
 import Gallery from './Gallery'
@@ -23,7 +25,8 @@ class TrainDetails extends React.Component{
     this.state = {
       cars: {},
       errors: [],
-      showSchemes: false
+      showSchemes: false,
+      selectedCar: 0
     }
   }
 
@@ -38,8 +41,9 @@ class TrainDetails extends React.Component{
       })
   }
  
-  handleClick = () => {
-    this.setState({showSchemes: true})
+  handleClick = (e) => {
+    console.log(parseInt(e.currentTarget.id.split('-')[-1]))
+    this.setState({showSchemes: true, selectedCar: parseInt(e.currentTarget.id.split('-')[1])})
   }
   
   evaluateSeats = (seats) => {
@@ -61,7 +65,7 @@ class TrainDetails extends React.Component{
     let cars = Object.keys(carsData).map((car, index) => {
       let { seatsWord, seatsColor } = this.evaluateSeats(carsData[car].free_seats)
       carSchemes.push(<CarScheme carSvg={Cars[index]} carNum={index + 1} carLayout={carsData[car].layout} key={index} />)
-      return <div id={car} key={index} style={{color: seatsColor}} onClick={this.handleClick}>
+      return <div id={'car-' + index} key={index} style={{color: seatsColor}} onClick={this.handleClick}>
         <Seat fill={seatsColor} />{carsData[car].free_seats + ' ' + seatsWord}
         </div>
     })
@@ -69,10 +73,12 @@ class TrainDetails extends React.Component{
     let carsSeatsData = <div className="train-details__cars-seats-data">
         <div className="train-details__free-seats">
           {cars}
-        </div>
-        <div className="train-details__train-picture">
-          <img alt='A train' src={trainPic}></img>
-        </div>
+          <img alt='1st car' id={'carimg-0'} src={leftCar} onClick={this.handleClick}></img>
+          <img alt='2nd car' id={'carimg-1'} src={middleCar} onClick={this.handleClick}></img>
+          <img alt='3rd car' id={'carimg-2'} src={middleCar} onClick={this.handleClick}></img>
+          <img alt='4th car' id={'carimg-3'} src={middleCar} onClick={this.handleClick}></img>
+          <img alt='5th car' id={'carimg-4'} src={rightCar} onClick={this.handleClick}></img>         
+        </div>        
       </div> 
     
     let carSchemesContainer = <div className="train-details__car-schemes">
@@ -81,7 +87,7 @@ class TrainDetails extends React.Component{
           <div><div><SchemeLegendSeat fill="#E41E13" /></div><div>место<br/>занято</div></div>
           <div><div><SchemeLegendFoldingSeats /></div><div>складные<br/>сидения</div></div>
         </div>
-        <Gallery>
+        <Gallery startingFrame={this.state.selectedCar} labels={['1 вагон', '2 вагон', '3 вагон', '4 вагон', '5 вагон']} >
           {carSchemes}
         </Gallery>
       </div>

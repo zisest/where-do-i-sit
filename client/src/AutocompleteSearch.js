@@ -22,7 +22,7 @@ class AutocompleteSearch extends React.Component{
         fetch('/api/getStations?s=' + this.state.value)
         .then(res => res.json())
         .then(res => this.setState({suggestions: res}, () => this.checkValidity(res)))
-      }, 800);
+      }, 500);
     } else {
       this.setState({suggestions: []});
     }
@@ -57,7 +57,7 @@ class AutocompleteSearch extends React.Component{
       if((e.key === 'ArrowDown') && (selected < length - 1)) 
         this.setState((prevState) => {
           let selected = prevState.keySelectedOption + 1     
-          if ((selected+1)*45 > suggestionsBox.scrollTop + 225) suggestionsBox.scrollBy(0, 45)    
+          if ((selected+1)*45 > suggestionsBox.scrollTop + 180) suggestionsBox.scrollBy(0, 45)    //180 = 4*45
           return {keySelectedOption: selected}
         })
       if(e.key === 'Enter' && selected !== -1) this.keySelectOption()

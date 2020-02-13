@@ -29,6 +29,7 @@ class CarScheme extends React.Component{
   
   render(){  
     let layout = this.decodeCarLayout(this.props.carLayout, this.state.carSizes['car' + this.props.carNum]) 
+    console.log(layout)
     return(
       <div className="car-scheme">        
         {this.props.carSvg(layout)}

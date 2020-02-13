@@ -38,7 +38,7 @@ class TrainRow extends React.Component{
       <div className="timetable-row" id={this.props.train_id} onClick={this.handleClick}>
         <div className="timetable-row__train-info">
           <div className="timetable-row__train-type">
-            <span>{(this.props.train_type !== 'Пригородный поезд') && this.props.train_type}</span>
+            <span>{(this.props.train_type === '«Ласточка»') && this.props.train_type}</span>
             <div className="timetable-row__train-type-icon"><TrainType fill={trainTypeColor} /></div>
           </div>
           <div className="timetable-row__train-name">{this.props.train_number + '  ' + this.props.train_name}</div>
