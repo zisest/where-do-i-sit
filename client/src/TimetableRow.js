@@ -5,6 +5,8 @@ import { ReactComponent  as TrainType } from './images/TrainType.svg'
 import { ReactComponent as Seat } from './images/Seat.svg'
 import TrainDetails from './TrainDetails.js'
 
+import './styles/TimetableRow.css' 
+
 class TrainRow extends React.Component{  
   constructor(props){
     super(props)   

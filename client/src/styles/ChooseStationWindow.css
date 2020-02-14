@@ -1,0 +1,44 @@
+
+.choose-station-window{
+    background-color: white;
+    border-radius: 8px;
+    height: 300px;
+    width: 475px;
+
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.choose-station-window__header{
+    background-color: var(--color-grey-light);
+    border-radius: 8px 8px 0px 0px;
+    height: 18%;
+    min-height: 35px;
+    font-size: 22px;
+    color: white;
+    padding: 4px;
+
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+
+.choose-station-window__button{
+    margin: 20px auto;
+}
+.choose-station-window__button > button{
+    background-color: var(--color-grey-light);
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    width: 130px;
+    height: 50px;
+    font-size: 16px;
+}
+.choose-station-window__button > button:hover{
+    cursor: pointer;
+    background-color: var(--color-button-hover);    
+    transition: 0.2s;
+}

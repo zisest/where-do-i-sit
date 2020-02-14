@@ -9,6 +9,9 @@ import { ReactComponent as Seat } from './images/Seat.svg'
 import Gallery from './Gallery'
 import CarScheme from './CarScheme'
 
+
+import './styles/TrainDetails.css' 
+
 import { ReactComponent as SchemeLegendSeat } from './images/car_schemes/legend/SchemeLegendSeat.svg'
 import { ReactComponent as SchemeLegendFoldingSeats } from './images/car_schemes/legend/SchemeLegendFoldingSeats.svg'
 
@@ -18,6 +21,7 @@ import Car3  from './images/car_schemes/car3.svg.js'
 import Car4  from './images/car_schemes/car4.svg.js'
 import Car5  from './images/car_schemes/car5.svg.js'
 const Cars = [Car1, Car2, Car3, Car4, Car5]
+
 
 class TrainDetails extends React.Component{  
   constructor(props){

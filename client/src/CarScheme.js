@@ -1,7 +1,7 @@
 import React from 'react'
 import bigInt from 'big-integer'
 
-
+import './styles/CarScheme.css' 
 
 class CarScheme extends React.Component{
   

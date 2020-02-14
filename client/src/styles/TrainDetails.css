@@ -1,0 +1,108 @@
+
+.train-details{
+    height: 300px;
+    box-shadow: inset 0px -11px 26px -26px rgba(0,0,0,0.44);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.train-details__header{
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr;
+}
+.train-details__train-name{
+    text-align: center;
+}
+
+.train-details__direction1, .train-details__direction2{
+    display: flex;
+    color: var(--color-grey-light);
+    font-size: 14px;
+}
+.train-details__direction1{
+    text-align: left;
+}
+.train-details__direction1 > div{
+    margin-right: 10px;
+}
+.train-details__direction2{
+    text-align: right;
+    justify-content: flex-end;
+}
+.train-details__direction2 > div{
+    margin-left: 10px;
+}
+
+.train-details__cars-seats-data{
+    margin-bottom: 20px
+}
+
+.train-details__free-seats{
+    display: grid;    
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(5, 1fr);
+    width: 94%;
+    margin: auto;
+    font-weight: 500;
+}
+.train-details__free-seats > div{
+    text-align: center;
+}
+.train-details__free-seats svg{
+    margin-right: 5px;
+}
+.train-details__free-seats > * {
+    width:100%;
+}
+.train-details__free-seats > *:hover{
+    cursor: pointer;
+}
+
+/*
+animations start
+*/
+.train-details__animation-enter {
+    max-height: 0;
+    opacity: 0.01;
+    overflow: hidden;
+}  
+.train-details__animation-enter.train-details__animation-enter-active {
+    transition: 300ms ease-in;
+    opacity: 1;
+    max-height: 330px;
+}  
+.train-details__animation-leave {
+    max-height: 330px;
+    opacity: 1;
+}  
+.train-details__animation-leave.train-details__animation-leave-active {
+    max-height: 0;
+    opacity: 0.01;
+    transition: 300ms ease-in;
+}
+  /*animations end*/
+
+.train-details__car-schemes{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.train-details__legend{
+    width: 50%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    margin-bottom: 3vh;
+}
+.train-details__legend > div{
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-gap: 5px;
+    font-size: 14px;    
+}
+.train-details__legend > div > div{
+    display: flex;
+    align-items: center;
+}

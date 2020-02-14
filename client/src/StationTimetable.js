@@ -1,14 +1,15 @@
 import React from 'react'
 import { Redirect, Link } from 'react-router-dom'
-import TrainRow from './TrainRow'
+import TimetableRow from './TimetableRow'
 import { ReactComponent as ShowMore } from './images/ShowMore.svg'
+import CurrentTime from './CurrentTime'
+
+import './styles/StationTimetable.css' 
 
 class StationTimetable extends React.Component{  
   constructor(props){
     super(props)   
     this.state = {
-      shouldRedirect: false,
-      currentTime: '',
       trainsData: [],
       errors: [],
       rowsShown: 0,
@@ -16,25 +17,16 @@ class StationTimetable extends React.Component{
       stationName: '',
       isLoading: true
     }
-    this.time = ''
   }
 
-  componentWillUnmount(){
-    clearInterval(this.time)
-  }
+
 
   componentDidMount(){
     console.log('Station timetable mounted')
-    this.time = setInterval(() => {
-      let time = new Date()
-      let currentTime = ("0" + time.getHours()).slice(-2) + ":" + 
-      ("0" + time.getMinutes()).slice(-2) + ":" + 
-      ("0" + time.getSeconds()).slice(-2)
-      this.setState({currentTime : currentTime})
-    },1000)
+    
     
     let query = this.props.query
-    if (query === null) this.setState({shouldRedirect: true})
+    if (query === null) this.setState({errors: ['Bad Request']})
     else {
       fetch('/api/getTimetable?initial=true&from=0&to=4&s=' + query)
       .then(res => {
@@ -87,7 +79,7 @@ class StationTimetable extends React.Component{
         st.trainsData.push(...res)
         return st
       })
-      else throw 'No results'
+      else throw 'No more results'
     })
     .catch(err => {
       this.setState(prevState => {
@@ -106,11 +98,14 @@ class StationTimetable extends React.Component{
   
 
   render(){
-    let invalidQuery = (this.state.shouldRedirect) ? <Redirect to="/" /> : ''
-    let trains = this.state.trainsData.map((train, index) => 
-      <TrainRow {...train} key={index} isExpanded={this.state.expandedRow === train.train_id} handleExpand={this.handleExpand} />)
+    let badRequest = (this.state.errors.indexOf('Bad Request') > -1) ? <Redirect to="/" /> : ''
+    let noResults = (this.state.errors.indexOf('No results') > -1) ? <div className="station-timetable__no-results">Все поезда ушли</div> : ''
     let loadingAnimation = <div className="loader"></div>
-    let noResults = <h2>Мы ничего не нашли, </h2>
+
+    let trains = this.state.trainsData.map((train, index) => 
+      <TimetableRow {...train} key={index} isExpanded={this.state.expandedRow === train.train_id} handleExpand={this.handleExpand} />)
+    
+    
 
     return(
       <div className="station-timetable">
@@ -125,13 +120,14 @@ class StationTimetable extends React.Component{
             <div className="station-timetable__header-info">
               <div className="station-timetable__station-name">{this.state.stationName !== '' ? this.state.stationName : this.props.query}</div>
               <hr/>
-              <div className="station-timetable__current-time">Текущее время: {this.state.currentTime}</div>
+              <CurrentTime />
             </div>
           </div>
           <div className="station-timetable__body">
             <div className="station-timetable__train-table">              
               {trains}
               {(this.state.isLoading === true) && loadingAnimation}
+              {noResults}
             </div>
             <div className="station-timetable__errors"></div>
             <div className="station-timetable__show-more" onClick={this.handleRequestMore}>
@@ -140,7 +136,7 @@ class StationTimetable extends React.Component{
           </div>
         </div>             
 
-        {invalidQuery}
+        {badRequest}
       </div>
     )
   }

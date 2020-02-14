@@ -1,0 +1,8 @@
+
+
+.car-scheme{
+    display: flex;
+}
+.car-scheme > svg{
+    width: 100%;
+}

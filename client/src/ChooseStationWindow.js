@@ -1,7 +1,7 @@
 import React from 'react'
 
 import AutocompleteSearch from './AutocompleteSearch'
-
+import './styles/ChooseStationWindow.css' 
 
 class ChooseStationWindow extends React.Component{
   /*

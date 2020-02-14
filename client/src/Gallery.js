@@ -3,6 +3,8 @@ import React from 'react'
 import {ReactComponent as CarArrow} from './images/CarArrowRight.svg'
 import CarScheme from './CarScheme'
 
+import './styles/Gallery.css' 
+
 class Gallery extends React.Component{
   
   constructor(props){

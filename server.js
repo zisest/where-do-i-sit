@@ -57,8 +57,9 @@ app.get('/api/getTimetable', (req, res) => {
             { method: 'GET', headers: { 'Authorization': process.env.YANDEX_API_KEY }})
         .then(yandexRes => yandexRes.json())
         .then(yandexRes => {    
+            if (yandexRes.error !== undefined) throw yandexRes.error.text           
             let upcoming = yandexRes.schedule.filter(t => Date.parse(t.departure) > currentTS)
-            let requested = upcoming.filter((t, index) => (index >= fromIndex) && (index <= toIndex))
+            let requested = upcoming.filter((t, index) => (index >= fromIndex) && (index <= toIndex))            
             let result = requested.map(t => {
                 let toSend = {}
                 toSend = (trainSeatsData[t.thread.uid] !== undefined) ?
@@ -81,7 +82,7 @@ app.get('/api/getTimetable', (req, res) => {
                     free_seats: -1
                 } 
                 return toSend
-            })
+            })                     
             if (req.query.initial === 'true') {
                 console.log('initial')
                 let stName = {"stationName": yandexRes.station.title}

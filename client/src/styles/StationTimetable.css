@@ -1,0 +1,92 @@
+
+.station-timetable{
+    width: 800px;
+
+    
+}
+.station-timetable__grid{
+    display: grid;
+    grid-template-rows: 100px auto;
+    grid-gap: 8px;
+}
+
+.station-timetable__header{
+    padding: 8px;
+    background-color: white;
+    border-radius: 8px 8px 0px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.station-timetable__go-back{
+    font-size: 14px;
+    color: var(--color-grey-light);
+    width: 184px;
+    display: flex;
+}
+.station-timetable__go-back:hover{
+    cursor: pointer;
+}
+.station-timetable__go-back:before{
+    content: url('/images/go-back-arrow.svg');
+    padding: 9px 8px 0px 0;
+}
+
+.station-timetable__header-info{
+    text-align: right;
+    margin: auto 30px auto auto;
+}
+.station-timetable__header-info > hr{
+    height: 3px;
+    width: 60px;
+    background-color: var(--color-red-logo);
+    border: none;
+    margin: 3px 0px 5px auto;
+}
+.station-timetable__station-name{
+    font-size: 28px;
+    font-weight: 500;
+}
+.station-timetable__current-time{
+    color: var(--color-grey-light);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+
+.station-timetable__body{
+    background-color: white;
+    border-radius: 0px 0px 8px 8px;
+}
+.station-timetable__no-results{
+    text-align: center;
+    font-size: 18px;
+    margin: 8% 0px 6% 0px;
+    color: var(--color-grey-light)
+}
+.station-timetable__show-more{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.station-timetable__show-more:hover{
+    cursor: pointer;
+}
+/* start loading... spinner*/
+.loader {
+    margin: 20px auto;
+    border: 0.25em solid #f3f3f3; 
+    border-top: 0.25em solid #546276;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+/*end*/

@@ -2,6 +2,8 @@ import React, { Fragment } from 'react'
 
 import {BrowserRouter as Router, Redirect } from 'react-router-dom';
 
+import './styles/AutocompleteSearch.css' 
+
 class AutocompleteSearch extends React.Component{
   constructor(props){
     super(props)
