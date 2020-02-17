@@ -10,7 +10,7 @@
 
 .train-details__header{
     display: grid;
-    grid-template-columns: 2fr 3fr 2fr;
+    grid-template-columns: 4fr 7fr 4fr;
 }
 .train-details__train-name{
     text-align: center;
@@ -90,7 +90,7 @@ animations start
     align-items: center;
 }
 .train-details__legend{
-    width: 50%;
+    min-width: 50%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
@@ -105,4 +105,24 @@ animations start
 .train-details__legend > div > div{
     display: flex;
     align-items: center;
+}
+
+@media only screen and (max-width: 720px){
+    .train-details__direction1, .train-details__direction2{
+        font-size: 13px;
+    }
+    .train-details__free-seats{
+        font-size: 14px;
+    }
+}
+
+
+@media only screen and (max-width: 625px){
+    .train-details__direction1, .train-details__direction2{
+        font-size: 13px;
+    }
+    .train-details__free-seats{
+        font-size: 14px;
+    }
+
 }

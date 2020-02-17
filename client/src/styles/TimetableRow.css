@@ -55,11 +55,13 @@
     text-overflow: ellipsis;
 }
 .timetable-row__train-route-info{
-    width: 180px;
+    width: 30%;
+    margin: auto 8px;
 }
 .timetable-row__seats{
     font-weight: 500;
-    width: 100px;
+    min-width: 100px;
+    text-align: right;
 }
 .timetable-row__seats > svg{
     margin-left: 8px;
@@ -67,4 +69,48 @@
 
 .timetable-row:hover{
     background-color: #e7e7e7;
+}
+
+@media only screen and (max-width: 625px){
+    .timetable-row__train-name{
+        font-size: 13px;
+        width: 145px;
+    }
+    .timetable-row__seats{
+        font-size: 14px;
+        min-width: 90px;
+    }
+    .timetable-row__departure-time{
+        font-size: 14px;
+    }
+    .timetable-row__train-route-info{
+        width: 100px;
+    }
+}
+
+
+@media only screen and (max-width: 440px){
+    .timetable-row__train-info{
+        grid-template-columns: 28px auto;
+    }
+    .timetable-row__train-route-info{
+        width: 40px;
+    }
+    .timetable-row__train-type > span{
+        display: none;
+    }
+    .timetable-row__train-name{
+        font-size: 12px;
+        width: 135px;
+    }
+    .timetable-row__seats{
+        min-width: 50px;
+    }
+    .timetable-row__seats > span {
+        display: none;
+    }
+    .timetable-row__stops{
+        font-size: 10px;
+    }
+    
 }

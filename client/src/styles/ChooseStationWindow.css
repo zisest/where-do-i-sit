@@ -25,7 +25,7 @@
 }
 
 .choose-station-window__button{
-    margin: 20px auto;
+    margin: 15px auto 20px auto;
 }
 .choose-station-window__button > button{
     background-color: var(--color-grey-light);
@@ -41,4 +41,23 @@
     cursor: pointer;
     background-color: var(--color-button-hover);    
     transition: 0.2s;
+}
+
+@media only screen and (max-width: 450px){
+    .choose-station-window{
+        width: 98%;
+        font-size: 14px;
+    }
+}
+@media only screen and (max-width: 365px){
+    .choose-station-window{      
+        font-size: 13px;
+        height: 250px
+    }
+    .choose-station-window__header{
+        font-size: 20px;
+    }
+    .choose-station-window__button > button{
+        font-size: 14px;
+    }
 }

@@ -120,7 +120,7 @@ class AutocompleteSearch extends React.Component{
       <Fragment>
       <div className="autocomplete-search">
         <label htmlFor="autocomplete-search">Укажите пункт отправления</label>
-        <div>
+        <div className="autocomplete-search__input">
         <input type="text" id="autocomplete-search" placeholder="Ленинский проспект" autoComplete="off"
           onChange={this.handleChange} value={this.state.value} onKeyDown={this.handleKeyDown} />
         {suggestions}

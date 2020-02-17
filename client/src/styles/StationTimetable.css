@@ -1,12 +1,12 @@
 
+
 .station-timetable{
     width: 800px;
-
     
 }
 .station-timetable__grid{
     display: grid;
-    grid-template-rows: 100px auto;
+    grid-template-rows: 120px auto;
     grid-gap: 8px;
 }
 
@@ -90,3 +90,33 @@
   }
   
 /*end*/
+
+@media only screen and (max-width: 625px){
+    .station-timetable{
+       width: 99%;
+    }
+    .station-timetable__header-info{
+        margin: auto 15px auto auto;
+    }
+    .station-timetable__station-name{
+        font-size: 26px;
+    }
+    .station-timetable__current-time{
+        font-size: 18px;
+    }
+    .station-timetable__go-back{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 440px){
+    .station-timetable__grid{
+        grid-template-rows: 100px auto;
+    }
+    .station-timetable__station-name{
+        font-size: 22px;
+    }
+    .station-timetable__current-time{
+        font-size: 16px;
+    }
+}
