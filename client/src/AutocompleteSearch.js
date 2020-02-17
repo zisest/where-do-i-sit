@@ -43,7 +43,11 @@ class AutocompleteSearch extends React.Component{
   }
 
   handleClick = (e) => {
-    this.setState({value: e.target.innerHTML, isValid: true, suggestions: [], keySelectedOption: -1})
+    let id = parseInt(e.currentTarget.id.split('-')[1])
+    this.setState(prevState => {     
+      let option = prevState.suggestions[id]
+      return {value: option, suggestions: [], keySelectedOption: -1, isValid: true}
+    })
   }
 
   keySelectOption = () => {
@@ -56,18 +60,29 @@ class AutocompleteSearch extends React.Component{
   handleKeyDown = (e) => {  
     let suggestionsBox = document.querySelector('.autocomplete-search__suggestions')
     let length = this.state.suggestions.length    
+
     if (length !== 0) {
+      let scrollTop = suggestionsBox.scrollTop
+      let scrollHeight = suggestionsBox.scrollHeight
+      let suggestionHeight = scrollHeight / length
       let selected = this.state.keySelectedOption
+
       if((e.key === 'ArrowUp') && (selected > 0)) 
         this.setState((prevState) => {
           let selected = prevState.keySelectedOption - 1
-          if (selected*45 < suggestionsBox.scrollTop) suggestionsBox.scrollBy(0, -45)
+          if (selected*suggestionHeight < scrollTop) suggestionsBox.scrollTo(0, scrollTop - suggestionHeight)
           return {keySelectedOption: selected}
-        })     
+        })
+      else if (e.key === 'ArrowUp')
+        this.setState((prevState) => {
+          let selected = length - 1
+          suggestionsBox.scrollTo(0, scrollHeight)
+          return {keySelectedOption: selected}
+        })
       if((e.key === 'ArrowDown') && (selected < length - 1)) 
         this.setState((prevState) => {
           let selected = prevState.keySelectedOption + 1     
-          if ((selected+1)*45 > suggestionsBox.scrollTop + 180) suggestionsBox.scrollBy(0, 45)    //180 = 4*45
+          if ((selected+1)*suggestionHeight > scrollTop + suggestionHeight*4) suggestionsBox.scrollTo(0, scrollTop + suggestionHeight)    //180 = 4*45
           return {keySelectedOption: selected}
         })
       if(e.key === 'Enter' && selected !== -1) this.keySelectOption()
@@ -106,12 +121,21 @@ class AutocompleteSearch extends React.Component{
 
 
   render(){
+    let value = this.state.value    
+
     let suggestions
     if (this.state.suggestions.length !== 0 ){
-      suggestions = <ul className="autocomplete-search__suggestions" onClick={this.handleClick}>
-        {this.state.suggestions.map((item, index) => <li key={index} id={'sugg-' + index} 
-        className={(index === this.state.keySelectedOption) ? 'autocomplete-search__suggestion_selected' : undefined}>{item}</li>)}
-        </ul>
+      let suggestionsList = this.state.suggestions.map((item, index) => {
+        let start = item.toLowerCase().indexOf(value)
+        let end = start + value.length
+        let suggestion = (start != -1) ? <div>{item.slice(0, start)}<em>{item.slice(start, end)}</em>{item.slice(end, item.length)}</div>
+          : <div>{item}</div>
+        return <li key={index} id={'sugg-' + index}  onClick={this.handleClick}
+          className={(index === this.state.keySelectedOption) ? 'autocomplete-search__suggestion_selected' : undefined}>          
+          {suggestion}
+        </li>
+      })
+      suggestions = <ul className="autocomplete-search__suggestions">{suggestionsList}</ul>
     } else {
       suggestions = ''
     }    
@@ -122,14 +146,14 @@ class AutocompleteSearch extends React.Component{
         <label htmlFor="autocomplete-search">Укажите пункт отправления</label>
         <div className="autocomplete-search__input">
         <input type="text" id="autocomplete-search" placeholder="Ленинский проспект" autoComplete="off"
-          onChange={this.handleChange} value={this.state.value} onKeyDown={this.handleKeyDown} />
+          onChange={this.handleChange} value={value} onKeyDown={this.handleKeyDown} />
         {suggestions}
         </div>
       </div>
       <div className="choose-station-window__button">
           <button onClick={this.handleSubmit}>Показать поезда</button>
       </div>
-      {this.state.isSubmitted && <Redirect to={"/timetable?station=" + this.state.value} />}
+      {this.state.isSubmitted && <Redirect to={"/timetable?station=" + value} />}
       </Fragment>
     )
   }
