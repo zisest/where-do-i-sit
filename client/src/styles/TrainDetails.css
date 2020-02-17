@@ -1,6 +1,6 @@
 
 .train-details{
-    height: 300px;
+    height: 270px;
     box-shadow: inset 0px -11px 26px -26px rgba(0,0,0,0.44);
     padding: 15px;
     display: flex;
@@ -20,16 +20,14 @@
     display: flex;
     color: var(--color-grey-light);
     font-size: 14px;
-}
-.train-details__direction1{
     text-align: left;
 }
 .train-details__direction1 > div{
     margin-right: 10px;
 }
 .train-details__direction2{
+    flex-direction: row-reverse;
     text-align: right;
-    justify-content: flex-end;
 }
 .train-details__direction2 > div{
     margin-left: 10px;
@@ -43,12 +41,15 @@
     display: grid;    
     grid-template-rows: 1fr 1fr;
     grid-template-columns: repeat(5, 1fr);
+    row-gap: 5px;
     width: 94%;
     margin: auto;
     font-weight: 500;
 }
 .train-details__free-seats > div{
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .train-details__free-seats svg{
     margin-right: 5px;
@@ -58,6 +59,9 @@
 }
 .train-details__free-seats > *:hover{
     cursor: pointer;
+}
+.train-details__free-seats span {
+    margin-left: 3px
 }
 
 /*
@@ -71,10 +75,10 @@ animations start
 .train-details__animation-enter.train-details__animation-enter-active {
     transition: 300ms ease-in;
     opacity: 1;
-    max-height: 330px;
+    max-height: 300px;
 }  
 .train-details__animation-leave {
-    max-height: 330px;
+    max-height: 300px;
     opacity: 1;
 }  
 .train-details__animation-leave.train-details__animation-leave-active {
@@ -94,7 +98,7 @@ animations start
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
-    margin-bottom: 3vh;
+    margin: 1vh auto;
 }
 .train-details__legend > div{
     display: grid;
@@ -118,11 +122,46 @@ animations start
 
 
 @media only screen and (max-width: 625px){
+    .train-details{
+        padding: 8px;
+    }
     .train-details__direction1, .train-details__direction2{
-        font-size: 13px;
+        font-size: 12px;
+        display: block;
     }
     .train-details__free-seats{
-        font-size: 14px;
+        font-size: 13px;
+    }
+    .train-details__train-name > h3{
+        display: none;
+    }
+    .train-details__direction1 svg, .train-details__direction2 svg{
+        width: 30px;
     }
 
 }
+
+
+
+@media only screen and (max-width: 440px){
+    .train-details{
+        height: 180px;
+    }
+    .train-details__direction1, .train-details__direction2{
+        font-size: 12px;
+    }
+    .train-details__header{
+        grid-template-columns: 1fr 1fr;
+    }
+    .train-details__train-name{
+        display: none;
+    }
+    .train-details__legend > div{  
+        font-size: 12px;
+    }  
+    .train-details__free-seats span {
+        display: none;
+    }
+   
+}
+

@@ -28,6 +28,7 @@
     color: var(--color-red-logo);
     font-size: 12px;
 }
+
 .timetable-row__train-type-icon{
     display: flex;
     justify-content: center;
@@ -62,6 +63,11 @@
     font-weight: 500;
     min-width: 100px;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
+.timetable-row__seats > span {
+    margin-left: 3px;
 }
 .timetable-row__seats > svg{
     margin-left: 8px;
@@ -99,6 +105,7 @@
     .timetable-row__train-type > span{
         display: none;
     }
+    
     .timetable-row__train-name{
         font-size: 12px;
         width: 135px;
@@ -114,3 +121,4 @@
     }
     
 }
+

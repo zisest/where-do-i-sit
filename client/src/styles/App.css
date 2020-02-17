@@ -84,5 +84,25 @@ h3 {
     }
 }
 
+@media only screen and (max-width: 420px){
+    .header{
+        height: 70px;
+        padding: 0px 15px;
+    }
+    .logo > a{
+        height: 36.5px;
+    }
+    .logo svg {
+        height: 36.5px;
+        width: 138px;
+    }
+    h3{
+        font-size: 14px;
+    }
+    h2{ 
+        font-size: 16px;
+    }
+}
+
 
 

@@ -92,7 +92,9 @@ class StationTimetable extends React.Component{
   }
 
   handleExpand = (id) => {
-    this.setState({expandedRow: id})
+    this.setState(prevState => {
+      return (prevState.expandedRow === id) ? {expandedRow: -1} : {expandedRow: id}
+    })
   }
 
   

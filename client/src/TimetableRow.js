@@ -52,7 +52,7 @@ class TrainRow extends React.Component{
           <div className="timetable-row__departure-time">{this.props.departure_time.split('T')[1].substring(0, 5)}</div>
           <div className="timetable-row__stops">{this.props.stops}</div>
         </div>         
-        <div className="timetable-row__seats" style={{color: seatsColor}}>{this.props.free_seats} <span>{seatsWord}</span><Seat fill={seatsColor} /> </div>
+        <div className="timetable-row__seats" style={{color: seatsColor}}>{this.props.free_seats}<span>{seatsWord}</span><Seat fill={seatsColor} /> </div>
       </div>
       <CSSTransition timeout={300} classNames="train-details__animation" in={this.props.isExpanded}>
         <div>{this.props.isExpanded && <TrainDetails {...this.props} /> }</div>

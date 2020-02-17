@@ -83,7 +83,7 @@ class TrainDetails extends React.Component{
       let { seatsWord, seatsColor } = this.evaluateSeats(carsData[car].free_seats)
       carSchemes.push(<CarScheme carSvg={Cars[index]} carNum={index + 1} carLayout={carsData[car].layout} key={index} />)
       return <div id={'car-' + index} key={index} style={{color: seatsColor}} onClick={this.handleClick}>
-        <Seat fill={seatsColor} />{carsData[car].free_seats + ' ' + seatsWord}
+        <Seat fill={seatsColor} />{carsData[car].free_seats}<span>{seatsWord}</span>
         </div>
     })
 
@@ -120,8 +120,8 @@ class TrainDetails extends React.Component{
             <h3>Свободные места в поезде</h3><h2>"{this.props.train_name}"</h2>
           </div>
           <div className="train-details__direction2">
-            {this.props.train_name.split('—')[1]}
             <div><DirectionRight /></div>
+            {this.props.train_name.split('—')[1]}            
           </div>
         </div>
         {this.state.showSchemes ? carSchemesContainer : carsSeatsData} 

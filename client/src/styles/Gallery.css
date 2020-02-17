@@ -83,7 +83,7 @@
     height: 100%;
     width: 100%;
     display: grid;
-    grid-template-rows: 1fr 5fr 1fr;
+    grid-template-rows: 1fr auto 1fr;
   }
   .gallery__frame-label{
     display: flex;
@@ -92,3 +92,21 @@
     font-size: 20px;
     font-weight: 500;
   }
+
+@media only screen and (max-width: 625px){
+  .gallery{
+    height: 115px;
+  }
+  .gallery__left-arrow > svg, .gallery__right-arrow > svg{
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 440px){
+  .gallery__frame-label{
+    font-size: 16px;
+  }
+  .gallery{
+    height: 92px;
+  }
+}
