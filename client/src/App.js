@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Link, Route, Switch, useLocation, } from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Switch, useLocation, Redirect, } from 'react-router-dom';
 
 import ChooseStationWindow from './ChooseStationWindow'
 import StationTimetable from './StationTimetable'
@@ -44,6 +44,7 @@ function App() {
               <CarScheme carSvg={Car5} carNum={5} carLayout={'147573671114632593279'} />
             </Gallery> } />
           <Route exact path="/" component={ChooseStationWindow} />
+          <Route render={() => <Redirect to="/"/>} />
         </Switch>
         
       </div>

@@ -23,7 +23,7 @@ class Gallery extends React.Component{
         behavior: 'auto'
       })
       this.setState({selectedFrame: this.props.startingFrame})
-      console.log('passed from parent: ' + this.props.startingFrame)
+      //console.log('passed from parent: ' + this.props.startingFrame)
     }
   }
 
@@ -36,7 +36,7 @@ class Gallery extends React.Component{
           top: 0,
           behavior: 'smooth'
         }) 
-        console.log('slideLeft: ' + (prevState.selectedFrame - 1))
+        //console.log('slideLeft: ' + (prevState.selectedFrame - 1))
         return {selectedFrame: prevState.selectedFrame - 1, isSliding: true}
       }
     }, () => {
@@ -51,7 +51,7 @@ class Gallery extends React.Component{
           top: 0,
           behavior: 'smooth'
         }) 
-        console.log('slideRight: ' + (prevState.selectedFrame + 1))
+        //console.log('slideRight: ' + (prevState.selectedFrame + 1))
         return {selectedFrame: prevState.selectedFrame + 1, isSliding: true}
       }
     }, () => {
@@ -76,7 +76,7 @@ class Gallery extends React.Component{
       let selectedFrame = Math.floor(frameCount * frames.scrollLeft / frames.scrollWidth)
       if (this.state.selectedFrame !== selectedFrame) {
         this.setState({selectedFrame: selectedFrame})
-        console.log('handleScroll: ' + selectedFrame)
+        //console.log('handleScroll: ' + selectedFrame)
       }
     }
   }

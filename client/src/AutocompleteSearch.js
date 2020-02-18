@@ -93,7 +93,7 @@ class AutocompleteSearch extends React.Component{
   }
 
   checkValidity = (suggestions = this.state.suggestions) => {
-    console.log('validiry check')
+    //console.log('validity check')
     if (!this.state.isValid && suggestions.length !==  0){ 
       let isValid = false
       let validIndex = -1
@@ -111,7 +111,7 @@ class AutocompleteSearch extends React.Component{
 
   handleSubmit = () => {
     if (this.state.isValid || this.checkValidity()) {
-      console.log('Submitted' + this.state.value)
+      //console.log('Submitted' + this.state.value)
       this.setState({isSubmitted: true})
     }
     

@@ -22,7 +22,7 @@ class StationTimetable extends React.Component{
 
 
   componentDidMount(){
-    console.log('Station timetable mounted')
+    //console.log('Station timetable mounted')
     
     
     let query = this.props.query
@@ -46,7 +46,7 @@ class StationTimetable extends React.Component{
         else throw 'No results'     
       })
       .catch(err => {
-        console.log(err)
+        //console.log(err)
         this.setState(prevState => {
           let st = prevState
           st.isLoading = false        

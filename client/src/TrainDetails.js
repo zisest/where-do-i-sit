@@ -56,7 +56,6 @@ class TrainDetails extends React.Component{
   }
  
   handleClick = (e) => {
-    console.log(parseInt(e.currentTarget.id.split('-')[-1]))
     this.setState({showSchemes: true, selectedCar: parseInt(e.currentTarget.id.split('-')[1])})
   }
   
