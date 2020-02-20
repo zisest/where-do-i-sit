@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { CSSTransition } from 'react-transition-group'
 
 import { ReactComponent  as TrainType } from './images/TrainType.svg'
 import { ReactComponent as Seat } from './images/Seat.svg'

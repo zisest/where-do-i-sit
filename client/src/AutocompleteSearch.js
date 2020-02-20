@@ -128,7 +128,7 @@ class AutocompleteSearch extends React.Component{
       let suggestionsList = this.state.suggestions.map((item, index) => {
         let start = item.toLowerCase().indexOf(value)
         let end = start + value.length
-        let suggestion = (start != -1) ? <div>{item.slice(0, start)}<em>{item.slice(start, end)}</em>{item.slice(end, item.length)}</div>
+        let suggestion = (start !== -1) ? <div>{item.slice(0, start)}<em>{item.slice(start, end)}</em>{item.slice(end, item.length)}</div>
           : <div>{item}</div>
         return <li key={index} id={'sugg-' + index}  onClick={this.handleClick}
           className={(index === this.state.keySelectedOption) ? 'autocomplete-search__suggestion_selected' : undefined}>          

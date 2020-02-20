@@ -172,9 +172,6 @@
     .train-details__header{
         grid-template-columns: 1fr 1fr;
     }
-    .train-details__car-images > div {
-
-    }
 
 }
 

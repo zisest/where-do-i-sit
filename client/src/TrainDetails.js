@@ -1,9 +1,6 @@
 import React from 'react'
 import { ReactComponent as DirectionLeft } from './images/DirectionLeft.svg'
 import { ReactComponent as DirectionRight } from './images/DirectionRight.svg'
-import leftCar from './images/left-car.png'
-import middleCar from './images/middle-car.png'
-import rightCar from './images/right-car.png'
 import { ReactComponent as Seat } from './images/Seat.svg'
 
 import Gallery from './Gallery'
@@ -77,7 +74,6 @@ class TrainDetails extends React.Component{
   }
 
   render(){        
-    let wideCars = window.screen.width > 625
     let carsData = this.state.cars
     let carSchemes = []
     let cars = Object.keys(carsData).map((car, index) => {
