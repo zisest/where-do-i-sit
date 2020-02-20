@@ -9,6 +9,9 @@ import './styles/App.css'
 import {ReactComponent as Logo} from './images/Logo.svg'
 
 
+//delete
+import NotificationsBlock from './NotificationsBlock';
+
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }

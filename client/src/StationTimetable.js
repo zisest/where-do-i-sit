@@ -4,6 +4,9 @@ import TimetableRow from './TimetableRow'
 import { ReactComponent as ShowMore } from './images/ShowMore.svg'
 import CurrentTime from './CurrentTime'
 
+import NotificationsBlock from './NotificationsBlock'
+import Notification from  './Notification'
+
 import './styles/StationTimetable.css' 
 
 class StationTimetable extends React.Component{  
@@ -137,7 +140,9 @@ class StationTimetable extends React.Component{
             </div>
           </div>
         </div>             
-
+        <NotificationsBlock>
+          {this.state.errors.map((err, index) => <Notification key={index} err_id={index} message={err} type="error" />)}
+        </NotificationsBlock>
         {badRequest}
       </div>
     )

@@ -88,7 +88,7 @@ class TrainDetails extends React.Component{
         <div className="train-details__free-seats">
           <div className="train-details__free-seats-numbers">{cars}</div>
           <div className="train-details__car-images">
-            {cars.map((car, index) => <div id={'carimg-' + index} onClick={this.handleClick}>{index + 1}</div>)}            
+            {cars.map((car, index) => <div id={'carimg-' + index} key={index} onClick={this.handleClick}>{index + 1}</div>)}            
           </div>
                
         </div>        

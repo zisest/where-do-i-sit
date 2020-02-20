@@ -1,0 +1,40 @@
+.notifications-block__absolute_container{
+    position: absolute;
+    left: 0px;
+}
+.notifications-block__relative_container{
+    position: relative;
+}
+.notifications-block{
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    width: 200px;
+    height: 221px;
+
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.notifications-block > div:last-child:hover{
+    cursor: pointer;
+}
+
+.notification__animation-enter {
+    opacity: 0;
+    transform: translateX(-100px);
+}
+.notification__animation-enter-active {    
+    transform: translateX(0px);
+    opacity: 1;
+    transition: 800ms;
+}
+.notification__animation-exit {
+    transform: translateX(0px);
+    opacity: 1;
+}
+.notification__animation-exit-active {    
+    transform: translateX(-100px);
+    opacity: 0;
+    transition: 200ms;
+}

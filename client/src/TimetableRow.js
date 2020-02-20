@@ -54,8 +54,8 @@ class TrainRow extends React.Component{
         </div>         
         <div className="timetable-row__seats" style={{color: seatsColor}}>{this.props.free_seats}<span>{seatsWord}</span><Seat fill={seatsColor} /> </div>
       </div>
-      <CSSTransition timeout={300} classNames="train-details__animation" in={this.props.isExpanded}>
-        <div>{this.props.isExpanded && <TrainDetails {...this.props} /> }</div>
+      <CSSTransition unmountOnExit timeout={300} classNames="train-details__animation" in={this.props.isExpanded}>
+        <TrainDetails {...this.props} />
       </CSSTransition>
         
       </Fragment>
