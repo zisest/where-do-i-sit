@@ -21,7 +21,7 @@ body {
   }
 
 .app, #root, html{
-    height: 100%;
+    /*height: 100%;*/
 }
 
 
@@ -72,7 +72,7 @@ h3 {
     
     
     height: calc(100% - 100px - 60px); /*full height - header height - verical padding*/
-    padding: 20px 20px 40px 20px;
+    padding: 20px;
 }
 
 @media only screen and (max-width: 720px){
@@ -81,6 +81,11 @@ h3 {
     }
     h2{ 
         font-size: 18px;
+    }
+}
+@media only screen and (max-width: 625px){
+    .main-area{
+        padding: 15px 10px 15px 10px;
     }
 }
 

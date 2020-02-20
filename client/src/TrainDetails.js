@@ -9,7 +9,6 @@ import { ReactComponent as Seat } from './images/Seat.svg'
 import Gallery from './Gallery'
 import CarScheme from './CarScheme'
 
-
 import './styles/TrainDetails.css' 
 
 import { ReactComponent as SchemeLegendSeat } from './images/car_schemes/legend/SchemeLegendSeat.svg'
@@ -20,6 +19,9 @@ import Car2  from './images/car_schemes/car2.svg.js'
 import Car3  from './images/car_schemes/car3.svg.js'
 import Car4  from './images/car_schemes/car4.svg.js'
 import Car5  from './images/car_schemes/car5.svg.js'
+
+
+
 const Cars = [Car1, Car2, Car3, Car4, Car5]
 
 
@@ -75,7 +77,7 @@ class TrainDetails extends React.Component{
   }
 
   render(){        
-    
+    let wideCars = window.screen.width > 625
     let carsData = this.state.cars
     let carSchemes = []
     let cars = Object.keys(carsData).map((car, index) => {
@@ -88,12 +90,11 @@ class TrainDetails extends React.Component{
 
     let carsSeatsData = <div className="train-details__cars-seats-data">
         <div className="train-details__free-seats">
-          {cars}
-          <img alt='1st car' id={'carimg-0'} src={leftCar} onClick={this.handleClick}></img>
-          <img alt='2nd car' id={'carimg-1'} src={middleCar} onClick={this.handleClick}></img>
-          <img alt='3rd car' id={'carimg-2'} src={middleCar} onClick={this.handleClick}></img>
-          <img alt='4th car' id={'carimg-3'} src={middleCar} onClick={this.handleClick}></img>
-          <img alt='5th car' id={'carimg-4'} src={rightCar} onClick={this.handleClick}></img>         
+          <div className="train-details__free-seats-numbers">{cars}</div>
+          <div className="train-details__car-images">
+            {cars.map((car, index) => <div id={'carimg-' + index} onClick={this.handleClick}>{index + 1}</div>)}            
+          </div>
+               
         </div>        
       </div> 
     

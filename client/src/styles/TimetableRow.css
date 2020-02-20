@@ -90,10 +90,14 @@
         font-size: 14px;
     }
     .timetable-row__train-route-info{
+        width: 125px;
+    }
+}
+@media only screen and (max-width: 500px){
+    .timetable-row__train-route-info{
         width: 100px;
     }
 }
-
 
 @media only screen and (max-width: 440px){
     .timetable-row__train-info{

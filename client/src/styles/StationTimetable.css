@@ -92,9 +92,7 @@
 /*end*/
 
 @media only screen and (max-width: 625px){
-    .station-timetable{
-       width: 99%;
-    }
+    
     .station-timetable__header-info{
         margin: auto 15px auto auto;
     }

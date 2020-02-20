@@ -94,8 +94,11 @@
   }
 
 @media only screen and (max-width: 625px){
+  .gallery__frame-label{
+    font-size: 16px;
+  }
   .gallery{
-    height: 115px;
+    height: 92px;
   }
   .gallery__left-arrow > svg, .gallery__right-arrow > svg{
     width: 80%;
@@ -103,10 +106,5 @@
 }
 
 @media only screen and (max-width: 440px){
-  .gallery__frame-label{
-    font-size: 16px;
-  }
-  .gallery{
-    height: 92px;
-  }
+
 }

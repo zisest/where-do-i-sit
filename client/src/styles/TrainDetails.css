@@ -39,34 +39,58 @@
 
 .train-details__free-seats{
     display: grid;    
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: repeat(5, 1fr);
-    row-gap: 5px;
+    grid-template-rows: auto 40px;    
+    row-gap: 10px;    
     width: 94%;
     margin: auto;
     font-weight: 500;
 }
-.train-details__free-seats > div{
+
+.train-details__free-seats-numbers{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 2px;
+}
+.train-details__free-seats-numbers > div {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.train-details__free-seats svg{
+.train-details__free-seats-numbers > div > svg{
     margin-right: 5px;
 }
-.train-details__free-seats > * {
-    width:100%;
-}
-.train-details__free-seats > *:hover{
+.train-details__free-seats:hover{
     cursor: pointer;
 }
 .train-details__free-seats span {
     margin-left: 3px
 }
+.train-details__car-images{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 2px;
+}
+.train-details__car-images > div {
+    border: 2px solid var(--color-grey-dark);
+    border-radius: 13px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--color-grey-lighter);
+}
+.train-details__car-images > div:first-child{
+    border-radius: 65px 25px 25px 65px/40px 25px 25px 40px;
+    padding-left: 5px;
+}
+.train-details__car-images > div:last-child{
+    border-radius: 25px 65px 65px 25px/25px 40px 40px 25px;
+    padding-right: 5px;
+}
 
-/*
-animations start
-*/
+/*animations start*/
 .train-details__animation-enter {
     max-height: 0;
     opacity: 0.01;
@@ -77,11 +101,11 @@ animations start
     opacity: 1;
     max-height: 300px;
 }  
-.train-details__animation-leave {
+.train-details__animation-exit {
     max-height: 300px;
     opacity: 1;
 }  
-.train-details__animation-leave.train-details__animation-leave-active {
+.train-details__animation-exit.train-details__animation-exit-active {
     max-height: 0;
     opacity: 0.01;
     transition: 300ms ease-in;
@@ -118,12 +142,16 @@ animations start
     .train-details__free-seats{
         font-size: 14px;
     }
+    .train-details__car-images > div {
+        font-size: 16px;
+    }
 }
 
 
 @media only screen and (max-width: 625px){
     .train-details{
         padding: 8px;
+        height: 180px;
     }
     .train-details__direction1, .train-details__direction2{
         font-size: 12px;
@@ -138,6 +166,15 @@ animations start
     .train-details__direction1 svg, .train-details__direction2 svg{
         width: 30px;
     }
+    .train-details__train-name{
+        display: none;
+    }
+    .train-details__header{
+        grid-template-columns: 1fr 1fr;
+    }
+    .train-details__car-images > div {
+
+    }
 
 }
 
@@ -150,17 +187,19 @@ animations start
     .train-details__direction1, .train-details__direction2{
         font-size: 12px;
     }
-    .train-details__header{
-        grid-template-columns: 1fr 1fr;
-    }
-    .train-details__train-name{
-        display: none;
-    }
+   
     .train-details__legend > div{  
         font-size: 12px;
     }  
+    .train-details__free-seats {
+        grid-template-rows: auto 30px;
+        row-gap: 5px;
+    }
     .train-details__free-seats span {
         display: none;
+    }
+    .train-details__car-images > div {
+        font-size: 14px;
     }
    
 }
