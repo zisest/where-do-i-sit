@@ -18,4 +18,4 @@ You can visit the site at [trains.zisest.ru](https://trains.zisest.ru).
 
 ## Built with
 - React
-- Node.js + Express.js
+- Node.js + Express
