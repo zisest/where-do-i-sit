@@ -90,10 +90,10 @@ router.get('/api/getTimetable', (req, res) => {
         })
         .catch(err => {
             console.error(err)
-            res.sendStatus(500)
+            res.status(500).send('Internal Server Error')
         })
     } else {
-        res.sendStatus(400)
+        res.status(400).send('Bad Request')
     }
 })
 
@@ -104,7 +104,7 @@ router.get('/api/getDetails', (req, res) => {
         res.send(JSON.stringify({free_seats_detailed: trainSeatsData[query].cars}))
         console.log(JSON.stringify({free_seats_detailed: trainSeatsData[query].cars}))      
     } else {
-        res.sendStatus(400)
+        res.status(400).send('Bad Request')
     }
 })
 

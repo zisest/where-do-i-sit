@@ -36,7 +36,7 @@ class StationTimetable extends React.Component{
       fetch('/api/getTimetable?initial=true&from=0&to=4&s=' + query)
       .then(res => {
         if (!res.ok) {
-          throw res.statusText
+          throw ((res.status === 400) ? 'Bad Request' : 'Internal Server Error')
         }
         return res.json()
       })
@@ -54,7 +54,8 @@ class StationTimetable extends React.Component{
         //console.log(err)
         this.setState(prevState => {
           let st = prevState
-          st.isLoading = false        
+          st.isLoading = false  
+          console.log(err.toString())      
           st.errors.push(err.toString())
           return st
         }, () => this.props.handleErrors(err.toString()))
@@ -71,7 +72,7 @@ class StationTimetable extends React.Component{
     fetch(`/api/getTimetable?from=${fromIndex}&to=${toIndex}&s=${this.props.query}`)
     .then(res => {
       if (!res.ok) {
-        throw res.statusText
+        throw ((res.status === 400) ? 'Bad Request' : 'Internal Server Error')
       }
       return res.json()
     })
@@ -89,7 +90,8 @@ class StationTimetable extends React.Component{
     .catch(err => {
       this.setState(prevState => {
         let st = prevState
-        st.isLoading = false        
+        st.isLoading = false     
+         
         st.errors.push(err.toString())
         return st
       }, () => this.props.handleErrors(err.toString()))
