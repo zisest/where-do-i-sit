@@ -19,7 +19,7 @@ class ChooseStationWindow extends React.Component{
         <div className="choose-station-window__header">
           Выбор поезда
         </div>
-        <AutocompleteSearch />        
+        <AutocompleteSearch handleErrors={this.props.handleErrors} />        
       </div>
     )
   }

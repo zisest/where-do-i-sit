@@ -1,20 +1,38 @@
-.notifications-block__absolute_container{
-    position: absolute;
-    left: 0px;
-}
-.notifications-block__relative_container{
-    position: relative;
+
+.notifications-block__sticky_container{
+    position: sticky;
+    top: 0px;
+    z-index: 1;
 }
 .notifications-block{
     position: absolute;
-    left: 20px;
-    bottom: 20px;
-    width: 200px;
-    height: 221px;
+    padding-left: 20px;
+    left: 0px;
+    top: 20px;
+    width: 208px;
+    height: 228px;
+    overflow-y: auto;
 
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
 }
+
+.notifications-block::-webkit-scrollbar {
+    width: 5px;
+}
+.notifications-block::-webkit-scrollbar-track { 
+    background : transparent;
+    border-radius: 5px;
+}
+.notifications-block::-webkit-scrollbar-thumb { 
+    background-color: rgba(137, 139, 139, 0.2);
+    border-radius: 5px;    
+}
+.notifications-block:hover::-webkit-scrollbar-thumb { 
+    background-color: rgba(137, 139, 139, 0.5); 
+}
+
+
 
 .notifications-block > div:last-child:hover{
     cursor: pointer;

@@ -37,7 +37,7 @@ class TrainDetails extends React.Component{
     fetch('/api/getDetails?t=' + this.props.train_id)
       .then(res => {
         if (!res.ok) {
-          throw res.status
+          throw res.statusText
         }
         return res.json()
       })
@@ -45,13 +45,8 @@ class TrainDetails extends React.Component{
         if (res.error !== undefined) throw res.error        
         this.setState({cars: res.free_seats_detailed}) 
       })
-      .catch(err => {
-        this.setState(prevState => {
-          let st = prevState      
-          st.errors.push(err.toString())
-          return st
-        })
-      }) 
+      .catch(err => this.props.handleErrors(err.toString()))
+       
   }
  
   handleClick = (e) => {

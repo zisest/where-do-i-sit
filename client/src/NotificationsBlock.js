@@ -3,6 +3,8 @@ import './styles/NotificationsBlock.css'
 
 import { CSSTransition } from 'react-transition-group'
 
+import Notification from './Notification'
+
 class NotificationsBlock extends React.Component{
   constructor(props){
     super(props)
@@ -22,9 +24,20 @@ class NotificationsBlock extends React.Component{
     }
   }
 
+  chooseType = (msg) => {
+    switch (msg){
+      case 'Нет результатов':
+      case 'Показаны все поезда':
+        return 'alert'
+        break
+      default:
+        return 'error'
+    }
+  }
+
   componentDidUpdate(prevProps) {
-    if (this.props.children !== prevProps.children) {
-      let len = this.props.children.length
+    if (this.props.notifications !== prevProps.notifications) {
+      let len = this.props.notifications.length
       if (len > this.state.shown.length) this.setState(prevState => {
         let st = prevState
         let newNotifs = new Array(len - this.state.shown.length).fill(true)
@@ -36,19 +49,18 @@ class NotificationsBlock extends React.Component{
 
   render(){   
    
-    return(
-      <div className="notifications-block__absolute_container">
-      <div className="notifications-block__relative_container">
+    return(      
+      <div className="notifications-block__sticky_container">
       <div className="notifications-block">
-          {this.props.children.map((notif, index) => {
+          {this.props.notifications.map((notif, index) => {
             return <CSSTransition key={index} unmountOnExit timeout={{enter: 800, exit: 200}} classNames="notification__animation" in={this.state.shown[index]}>
-                <div onClick={this.handleClick} onTouchEnd={this.handleClick} id={"notif-" + index}>{notif}</div>
+                <div onClick={this.handleClick} onTouchEnd={this.handleClick} id={"notif-" + index}>
+                  <Notification err_id={index} message={notif} type={this.chooseType(notif)} />
+                </div>
               </CSSTransition>
           })}
       </div>
-      </div>
-      </div>
-      
+      </div>      
     )
   }
   

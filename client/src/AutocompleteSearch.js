@@ -24,13 +24,13 @@ class AutocompleteSearch extends React.Component{
         fetch('/api/getStations?s=' + this.state.value)
         .then(res => {
           if (!res.ok) {
-            throw res.status
+            throw res.statusText
           }
           return res.json()
         })
         .then(res => this.setState({suggestions: res}, () => this.checkValidity(res)))
         .catch(err => {
-          alert(err.toString() + ': No connection') //CHANGE
+          this.props.handleErrors('Нет связи с сервером')
         })
       }, 500);
     } else {

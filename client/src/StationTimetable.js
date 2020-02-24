@@ -29,7 +29,9 @@ class StationTimetable extends React.Component{
     
     
     let query = this.props.query
-    if (query === null) this.setState({errors: ['Bad Request']})
+    if (query === null) {      
+      this.setState({errors: ['Bad Request']}, () => this.props.handleErrors('Некорректный запрос'))
+    }
     else {
       fetch('/api/getTimetable?initial=true&from=0&to=4&s=' + query)
       .then(res => {
@@ -46,7 +48,7 @@ class StationTimetable extends React.Component{
         if (len > 1) {
           this.setState({trainsData: result, rowsShown: len-1})
         }
-        else throw 'No results'     
+        else throw 'Нет результатов'     
       })
       .catch(err => {
         //console.log(err)
@@ -55,7 +57,7 @@ class StationTimetable extends React.Component{
           st.isLoading = false        
           st.errors.push(err.toString())
           return st
-        })
+        }, () => this.props.handleErrors(err.toString()))
       }) 
      
     }
@@ -69,7 +71,7 @@ class StationTimetable extends React.Component{
     fetch(`/api/getTimetable?from=${fromIndex}&to=${toIndex}&s=${this.props.query}`)
     .then(res => {
       if (!res.ok) {
-        throw res.status
+        throw res.statusText
       }
       return res.json()
     })
@@ -82,7 +84,7 @@ class StationTimetable extends React.Component{
         st.trainsData.push(...res)
         return st
       })
-      else throw 'No more results'
+      else throw 'Показаны все поезда'
     })
     .catch(err => {
       this.setState(prevState => {
@@ -90,7 +92,7 @@ class StationTimetable extends React.Component{
         st.isLoading = false        
         st.errors.push(err.toString())
         return st
-      })
+      }, () => this.props.handleErrors(err.toString()))
     }) 
   }
 
@@ -104,11 +106,11 @@ class StationTimetable extends React.Component{
 
   render(){
     let badRequest = (this.state.errors.indexOf('Bad Request') > -1) ? <Redirect to="/" /> : ''
-    let noResults = (this.state.errors.indexOf('No results') > -1) ? <div className="station-timetable__no-results">Все поезда ушли</div> : ''
+    let noResults = (this.state.errors.indexOf('Нет результатов') > -1) ? <div className="station-timetable__no-results">Все поезда ушли</div> : ''
     let loadingAnimation = <div className="loader"></div>
 
     let trains = this.state.trainsData.map((train, index) => 
-      <TimetableRow {...train} key={index} isExpanded={this.state.expandedRow === train.train_id} handleExpand={this.handleExpand} />)
+      <TimetableRow {...train} key={index} isExpanded={this.state.expandedRow === train.train_id} handleErrors={this.props.handleErrors} handleExpand={this.handleExpand} />)
     
     
 
@@ -139,10 +141,7 @@ class StationTimetable extends React.Component{
               <ShowMore />
             </div>
           </div>
-        </div>             
-        <NotificationsBlock>
-          {this.state.errors.map((err, index) => <Notification key={index} err_id={index} message={err} type="error" />)}
-        </NotificationsBlock>
+        </div>
         {badRequest}
       </div>
     )
