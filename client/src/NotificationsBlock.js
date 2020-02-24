@@ -28,10 +28,10 @@ class NotificationsBlock extends React.Component{
     switch (msg){
       case 'Нет результатов':
       case 'Показаны все поезда':
-        return 'alert'
-        break
+        return 'alert';
+        break;
       default:
-        return 'error'
+        return 'error';
     }
   }
 
