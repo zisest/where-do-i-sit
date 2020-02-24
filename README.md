@@ -7,7 +7,7 @@
 Website for the [Samsung IoT Academy](https://www.samsung.com/ru/iotacademy/) project. 
 
 ## About
-[![](https://zisest.ru/files/where-do-i-sit.gif)](https://trains.zisest.ru/)
+[![](https://zisest.ru/files/where-do-i-sit.png)](https://trains.zisest.ru/)
 
 The goal of the project is to develop a system that would keep track of occupied seats in suburban trains. Data from pressure sensors under the seats would be sent to a hub on the train and then to a remote server via GSM.
 
