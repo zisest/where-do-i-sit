@@ -10,7 +10,7 @@
     left: 0px;
     top: 20px;
     width: 208px;
-    height: 228px;
+    max-height: 228px;
     overflow-y: auto;
 
     display: flex;

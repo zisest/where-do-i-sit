@@ -121,12 +121,12 @@ class AutocompleteSearch extends React.Component{
 
 
   render(){
-    let value = this.state.value    
+    let value = this.state.value
 
     let suggestions
     if (this.state.suggestions.length !== 0 ){
       let suggestionsList = this.state.suggestions.map((item, index) => {
-        let start = item.toLowerCase().indexOf(value)
+        let start = item.toLowerCase().indexOf(value.toLowerCase())
         let end = start + value.length
         let suggestion = (start !== -1) ? <div>{item.slice(0, start)}<em>{item.slice(start, end)}</em>{item.slice(end, item.length)}</div>
           : <div>{item}</div>
