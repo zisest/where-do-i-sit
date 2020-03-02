@@ -53,7 +53,8 @@ h3 {
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
     height: 100px;
     display: flex;
-    flex-direction: row;    
+    flex-direction: row;   
+    justify-content: space-between; 
 }
 
 .logo{
@@ -62,7 +63,33 @@ h3 {
     justify-content: center;
     height: 100%;
 }
-
+.github-link{
+    display: flex;
+    margin: auto 0;
+}
+.github-link a{
+    display: flex;
+    flex-direction: row;
+}
+.github-link__text{    
+    color: #dcdcdc;
+    transition: color 0.3s ease-in;
+}
+.github-link svg{
+    margin-right: 5px;
+    width: 18px;
+    height: 18px;
+    fill: #dcdcdc;    
+    transition: fill 0.3s ease-in;
+}
+.github-link:hover .github-link__text{
+    color: var(--color-grey-light);
+    transition: color 0.3s ease-in;
+}
+.github-link:hover svg {    
+    fill: var(--color-grey-light);
+    transition: fill 0.3s ease-in;
+}
 
 .main-area{
     /*fixing "jumping scrollbar"*/

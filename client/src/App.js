@@ -8,7 +8,7 @@ import StationTimetable from './StationTimetable'
 import './styles/App.css' 
 
 import {ReactComponent as Logo} from './images/Logo.svg'
-
+import {ReactComponent as GithubLogo} from './images/GithubLogo.svg'
 
 import NotificationsBlock from './NotificationsBlock';
 
@@ -31,6 +31,11 @@ function App() {
       <header className="header">
           <div className="logo">
             <Link to="/"><Logo /></Link>       
+          </div>
+          <div className="github-link">
+            <a href="https://github.com/zisest/where-do-i-sit">
+            <GithubLogo /><div className="github-link__text">GitHub</div>
+            </a>
           </div>
       </header>
       <NotificationsBlock notifications={errors} />
