@@ -65,7 +65,7 @@ h3 {
 }
 .github-link{
     display: flex;
-    margin: auto 0;
+    margin: auto 3% auto 0;
 }
 .github-link a{
     display: flex;
@@ -73,6 +73,7 @@ h3 {
 }
 .github-link__text{    
     color: #dcdcdc;
+    font-size: 18px;
     transition: color 0.3s ease-in;
 }
 .github-link svg{
@@ -118,6 +119,9 @@ h3 {
 }
 
 @media only screen and (max-width: 420px){
+    .github-link__text{    
+        font-size: 16px;
+    }
     .header{
         height: 70px;
         padding: 0px 15px;
