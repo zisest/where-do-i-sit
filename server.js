@@ -5,11 +5,22 @@ const app = express()
 const port = process.env.PORT
 
 const path = require('path')
-const fetch = require('node-fetch');
+const fetch = require('node-fetch')
+const mongoose = require('mongoose')
 
 const environment = process.env.NODE_ENV
 
 const routes = require('./router')
+
+
+// MongoDB
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_LOCATION}/test?retryWrites=true&w=majority`, 
+  {dbName: 'wheredoisit', useNewUrlParser: true})
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'connection error:'))
+db.once('open', function() {
+  console.log('Successfully connected to the database') 
+})
 
 ///
 const stationsData = require('./data/stations.json')

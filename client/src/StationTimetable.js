@@ -62,8 +62,39 @@ class StationTimetable extends React.Component{
       }) 
      
     }
+
+    // Checking for updates
+    //setTimeout(this.checkUpdates, 30000)
+
   }
 
+  checkUpdates = () => {
+    console.log('checking for updates')
+    fetch(`/api/getTimetable?from=0&to=${this.state.rowsShown - 1}&s=${this.props.query}`)
+    .then(res => {
+      if (!res.ok) {
+        throw ('Internal Server Error')
+      }
+      return res.json()
+    })
+    .then(res => {          
+      let len = res.length
+      if (len > 0) this.setState(prevState => {
+        let st = prevState
+        st.rowsShown = len
+        st.trainsData = res
+        return st
+      })
+    })
+    .catch(err => {
+      this.setState(prevState => {
+        let st = prevState
+        st.errors.push(err.toString())
+        return st
+      }, () => this.props.handleErrors(err.toString()))
+    })
+    setTimeout(this.checkUpdates, 30000)
+  }
 
   handleRequestMore = () => {
     this.setState({isLoading: true})

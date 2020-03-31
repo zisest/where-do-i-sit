@@ -9,11 +9,11 @@ class CarScheme extends React.Component{
     super(props)   
     this.state = {
       carSizes: {
-        "car1": 67,
-        "car2": 103,
-        "car3": 103,
-        "car4": 103,
-        "car5": 67
+        1: 67,
+        2: 103,
+        3: 103,
+        4: 103,
+        5: 67
       }
     }          
   }
@@ -28,7 +28,7 @@ class CarScheme extends React.Component{
   }
   
   render(){  
-    let layout = this.decodeCarLayout(this.props.carLayout, this.state.carSizes['car' + this.props.carNum]) 
+    let layout = this.decodeCarLayout(this.props.carLayout, this.state.carSizes[this.props.carNum]) 
     //console.log(layout)
     return(
       <div className="car-scheme">        

@@ -11,8 +11,10 @@
   "author": "Nikita Antonov",
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
+    "big-integer": "^1.6.48",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mongoose": "^5.9.6",
     "node-fetch": "^2.6.0"
   }
 }

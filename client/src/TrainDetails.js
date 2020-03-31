@@ -31,28 +31,51 @@ class TrainDetails extends React.Component{
       showSchemes: false,
       selectedCar: 0
     }
+    this.updatesTimer = ''
   }
 
   componentDidMount(){
     fetch('/api/getDetails?t=' + this.props.train_id)
-      .then(res => {
-        if (!res.ok) {
-          throw res.statusText
-        }
-        return res.json()
-      })
-      .then(res => {
-        if (res.error !== undefined) throw res.error        
-        this.setState({cars: res.free_seats_detailed}) 
-      })
-      .catch(err => this.props.handleErrors(err.toString()))
+    .then(res => {
+      if (!res.ok) {
+        throw res.statusText
+      }
+      return res.json()
+    })
+    .then(res => {
+      if (res.error !== undefined) throw res.error        
+      this.setState({cars: res.free_seats_detailed}) 
+    })
+    .catch(err => this.props.handleErrors(err.toString()))
        
+    this.updatesTimer = setTimeout(this.checkUpdates, 15000)
+  }
+
+  componentWillUnmount(){
+    clearTimeout(this.updatesTimer)
   }
  
+  
+  checkUpdates = () => {
+    fetch('/api/getDetails?t=' + this.props.train_id)
+    .then(res => {
+      if (!res.ok) {
+        throw res.statusText
+      }
+      return res.json()
+    })
+    .then(res => {
+      if (res.error !== undefined) throw res.error        
+      this.setState({cars: res.free_seats_detailed}) 
+    })
+    .catch(err => this.props.handleErrors(err.toString()))
+    setTimeout(this.checkUpdates, 15000)
+  }
+
   handleClick = (e) => {
     this.setState({showSchemes: true, selectedCar: parseInt(e.currentTarget.id.split('-')[1])})
   }
-  
+
   evaluateSeats = (seats) => {
     let word = ''
     switch(seats % 10){
