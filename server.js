@@ -12,7 +12,6 @@ const environment = process.env.NODE_ENV
 
 const routes = require('./router')
 
-
 // MongoDB
 mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_LOCATION}/test?retryWrites=true&w=majority`, 
   {dbName: 'wheredoisit', useNewUrlParser: true})
@@ -22,10 +21,6 @@ db.once('open', function() {
   console.log('Successfully connected to the database') 
 })
 
-///
-const stationsData = require('./data/stations.json')
-const trainSeatsData = require('./data/trains.json')
-///
 /// ENABLING CORS FOR DEVELOPMENT
 if (environment === 'development'){
     app.use(function(req, res, next) {

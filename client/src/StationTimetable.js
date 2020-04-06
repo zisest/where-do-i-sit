@@ -143,7 +143,7 @@ class StationTimetable extends React.Component{
     let loadingAnimation = <div className="loader"></div>
 
     let trains = this.state.trainsData.map((train, index) => 
-      <TimetableRow {...train} key={index} isExpanded={this.state.expandedRow === train.train_id} handleErrors={this.props.handleErrors} handleExpand={this.handleExpand} />)
+      <TimetableRow {...train} key={index} isExpanded={train && this.state.expandedRow === train.train_id} handleErrors={this.props.handleErrors} handleExpand={this.handleExpand} />)
     
     
 

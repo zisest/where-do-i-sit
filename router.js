@@ -12,10 +12,6 @@ const rootPath = (environment === 'development') ? path.join(__dirname, 'client'
 const  { fillTrain, randomizing, encodeCarLayout, decodeCarLayout, carSizes } = require('./filler')
 const { Train, Station } = require('./mongo')
 
-////DATA:
-const stationsData = require('./data/stations.json')
-const trainSeatsData = require('./data/trains.json')
-////
 
 router.use(express.static(rootPath))
 
