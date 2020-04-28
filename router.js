@@ -118,18 +118,20 @@ router.get('/api/getDetails', (req, res) => {
 
 
 //Receiving requests from Arduino
-
+// http://trains.zisest.ru/api/updateSeats?key=&layout=3&car=1
 router.get('/api/updateSeats', (req, res) => {
     console.log('api/updateSeats')
+    if (!'12345'.includes(req.query.car) || req.query.layout < 0 || req.query.layout > 255 || !Number.isInteger(req.query.layout))
+        res.status(400).send('Bad request')
     if (req.query.key === process.env.ACCESS_KEY){
         Train.findOne({id: req.query.id}).then( doc => {
             console.log(doc)
             let car = doc.cars[req.query.car - 1]
             let layout = car.layout
             let binLayout = decodeCarLayout(layout, carSizes[+req.query.car])
-            let binChanges = decodeCarLayout(req.query.layout, 4).map(digit => +!+digit)
-            let newLayout = encodeCarLayout([...binChanges, ...binLayout.slice(4)])
-            let diff = binLayout.slice(0, 4).reduce((acc, curr, i) => {
+            let binChanges = decodeCarLayout(req.query.layout, 8).map(digit => +!+digit)
+            let newLayout = encodeCarLayout([...binChanges, ...binLayout.slice(8)])
+            let diff = binLayout.slice(0, 8).reduce((acc, curr, i) => {
                 return acc + (curr - binChanges[i])
             }, 0)
             doc.free_seats += diff
