@@ -1,21 +1,50 @@
-# Where Do I Sit?
+# Где сесть?
 <img src="https://zisest.ru/files/where-do-i-sit-logo.png" align="right"
      title="Where Do I Sit? logo" width="197" height="52">
 
 [![site](https://img.shields.io/website?url=https%3A%2F%2Ftrains.zisest.ru)](https://trains.zisest.ru/)
 
-Website for the [Samsung IoT Academy](https://www.samsung.com/ru/iotacademy/) project. 
+Проект для [IoT академии Samsung](https://www.samsung.com/ru/iotacademy/). 
 
-## About
-[![](https://zisest.ru/files/where-do-i-sit.png)](https://trains.zisest.ru/)
+## О проекте
+[![](https://zisest.ru/files/where-do-i-sit.gif)](https://trains.zisest.ru/)
 
-The goal of the project is to develop a system that would keep track of occupied seats in suburban trains. Data from pressure sensors under the seats would be sent to a hub on the train and then to a remote server via GSM.
+В электропоездах возникает проблема неравномерного распределения пассажиров, так как отсутствует возможность узнать, где в электропоезде есть необходимое количество свободных мест.
+Данная система позволит пассажирам быстрее находить свободное место в электропоезде, что обеспечит более равномерное распределение пассажиров по поезду, упростит проверку билетов и сделает поездки комфортнее
 
-Potentially, commuters will have the ability to choose which of the arriving trains to take based on how busy it is. Additionally, it would let passenger know which car has more free seats and help them find where to sit.
+## Демо
+Развернутое веб-приложение доступно по ссылке: [trains.zisest.ru](https://trains.zisest.ru).
 
-## Demo
-You can visit the site at [trains.zisest.ru](https://trains.zisest.ru).
+## Воссоздание прототипа
+### Железо
+- Макетная плата
+- Arduino Uno
+- GSM GPRS SIM900 Shield
+- Кнопки
+- Сдвиговые регистры SN74HC165N (количество определяется исходя из того, что к каждому регистру можно подключить не более 8 кнопок)
+- Резисторы (по одному на каждую кнопку)
+- Соединительные провода
+------------
+1. Регистры подключаются каскадом, если требуется подключить более 8 кнопок. Тогда необходимо подключить последовательный вывод регистра (QH) к последовательному входу (SER) предыдущего регистра.
+2. Кнопки необходимо подключать к 5V через резисторы. 
+3. GSM GPRS SIM900 Shield подключается к Arduino, в него необходимо вставить SIM-карту и проверить, чтобы был положительный баланс на счёте.
 
-## Built with
+### Сервер
 - React
 - Node.js + Express
+- MongoDB
+- API Яндекс.Расписания
+------------
+1. Склонировать репозиторий
+2. Задать следующие переменные среды:
+```
+PORT=[порт, на котором запустить сервер]
+YANDEX_API_KEY=[ключ API Яндекс.Расписания]
+MONGO_LOCATION=[адрес MongoDB]
+MONGO_USERNAME=[имя пользователя MongoDB]
+MONGO_PASSWORD=[пароль MongoDB]
+ACCESS_KEY=[ключ доступа для Arduino]
+```
+3. Выбрать желаемые станции и добавить их в MongoDB в соответствии со схемой в `mongo.js` (см. документацию [API Яндекс.Расписания](https://yandex.ru/dev/rasp/doc/concepts/about-docpage/ "API Яндекс.Расписания"))
+4. Запустить сервер: `npm run start`
+5. Запустить React dev-сервер: `cd client` > `npm run start`
