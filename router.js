@@ -121,7 +121,7 @@ router.get('/api/getDetails', (req, res) => {
 // http://trains.zisest.ru/api/updateSeats?key=&layout=3&car=1
 router.get('/api/updateSeats', (req, res) => {
     console.log('api/updateSeats')
-    if (!'12345'.includes(req.query.car) || req.query.layout < 0 || req.query.layout > 255 || !Number.isInteger(req.query.layout))
+    if (!'12345'.includes(req.query.car) || req.query.layout < 0 || req.query.layout > 255 || !Number.isInteger(+req.query.layout))
         res.status(400).send('Bad request')
     if (req.query.key === process.env.ACCESS_KEY){
         Train.findOne({id: req.query.id}).then( doc => {
