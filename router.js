@@ -122,39 +122,29 @@ router.get('/api/getDetails', (req, res) => {
 // http://trains.zisest.ru/api/updateSeats?key=&layout=3&car=1&id=237dyh3ud
 router.get('/api/updateSeats', (req, res) => {
     console.log('api/updateSeats')
-
-    const FULL_LAYOUTS = { // when all seats are taken
-        67: bigInt('147573952589676412927'),
-        103: bigInt('10141204801825835211973625643007')
-    }
-
-    try {
-        let queryLayout = bigInt(req.query.layout)
-        if (!'12345'.includes(req.query.car) || queryLayout.isNegative() || queryLayout.greater(FULL_LAYOUTS[carSizes[req.query.car]]))
-            res.status(400).send('Bad request')
-
-        if (req.query.key === process.env.ACCESS_KEY){
-            Train.findOne({id: req.query.id}).then(doc => {
-                console.log(doc)
-                let car = doc.cars[req.query.car - 1]            
-                let prevLayout = decodeCarLayout(car.layout, carSizes[+req.query.car])
-                let newLayout = decodeCarLayout(queryLayout, carSizes[+req.query.car])
-                let diff = newLayout.reduce((acc, curr, i) => acc + curr - prevLayout[i], 0)            
-                doc.free_seats += diff
-                car.free_seats += diff
-                car.layout = queryLayout.toString()
-                doc.save(() => console.log('saved'))
-            })
-            .catch(err => { throw err }) 
-            res.send(JSON.stringify({train: req.query.id, car_num: req.query.car, layout: queryLayout.toString()}))      
-        } else {        
-            res.status(403).send('Access denied')
-        }   
-
-    } catch(err) {
+    if (!'12345'.includes(req.query.car) || req.query.layout < 0)
         res.status(400).send('Bad request')
+    if (req.query.key === process.env.ACCESS_KEY){
+        Train.findOne({id: req.query.id}).then( doc => {
+            console.log(doc)
+            let car = doc.cars[req.query.car - 1]
+            let layout = car.layout
+            let binLayout = decodeCarLayout(layout, carSizes[+req.query.car])
+            let newBinLayout = decodeCarLayout(req.query.layout, carSizes[+req.query.car])//.map(digit => +!+digit)
+            let newLayout = encodeCarLayout(newBinLayout)
+            let diff = binLayout.reduce((acc, curr, i) => {
+                return acc + (curr - newBinLayout[i])
+            }, 0)
+            doc.free_seats += diff
+            car.free_seats += diff
+            car.layout = newLayout
+            doc.save(() => console.log('saved'))
+        })
+        .catch(err => { throw err })
+        res.send(JSON.stringify({train: req.query.id, car_num: req.query.car, layout: req.query.layout}))
+    } else {
+        res.status(403).send('Access denied')
     }
-    
 })
 
 router.get('*', (req, res) => res.sendFile('index.html', { root: rootPath }))
