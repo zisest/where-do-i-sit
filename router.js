@@ -130,29 +130,31 @@ router.get('/api/updateSeats', (req, res) => {
 
     try {
         let queryLayout = bigInt(req.query.layout)
+        if (!'12345'.includes(req.query.car) || queryLayout.isNegative() || queryLayout.greater(FULL_LAYOUTS[carSizes[req.query.car]]))
+            res.status(400).send('Bad request')
+
+        if (req.query.key === process.env.ACCESS_KEY){
+            Train.findOne({id: req.query.id}).then(doc => {
+                console.log(doc)
+                let car = doc.cars[req.query.car - 1]            
+                let prevLayout = decodeCarLayout(car.layout, carSizes[+req.query.car])
+                let newLayout = decodeCarLayout(queryLayout, carSizes[+req.query.car])
+                let diff = newLayout.reduce((acc, curr, i) => acc + curr - prevLayout[i], 0)            
+                doc.free_seats += diff
+                car.free_seats += diff
+                car.layout = queryLayout.toString()
+                doc.save(() => console.log('saved'))
+            })
+            .catch(err => { throw err }) 
+            res.send(JSON.stringify({train: req.query.id, car_num: req.query.car, layout: queryLayout.toString()}))      
+        } else {        
+            res.status(403).send('Access denied')
+        }   
+
     } catch(err) {
         res.status(400).send('Bad request')
     }
-    if (!'12345'.includes(req.query.car) || queryLayout.isNegative() || queryLayout.greater(FULL_LAYOUTS[carSizes[req.query.car]]))
-        res.status(400).send('Bad request')
-
-    if (req.query.key === process.env.ACCESS_KEY){
-        Train.findOne({id: req.query.id}).then(doc => {
-            console.log(doc)
-            let car = doc.cars[req.query.car - 1]            
-            let prevLayout = decodeCarLayout(car.layout, carSizes[+req.query.car])
-            let newLayout = decodeCarLayout(queryLayout, carSizes[+req.query.car])
-            let diff = newLayout.reduce((acc, curr, i) => acc + curr - prevLayout[i], 0)            
-            doc.free_seats += diff
-            car.free_seats += diff
-            car.layout = queryLayout.toString()
-            doc.save(() => console.log('saved'))
-        })
-        .catch(err => { throw err }) 
-        res.send(JSON.stringify({train: req.query.id, car_num: req.query.car, layout: queryLayout.toString()}))      
-    } else {        
-        res.status(403).send('Access denied')
-    }   
+    
 })
 
 router.get('*', (req, res) => res.sendFile('index.html', { root: rootPath }))
