@@ -76,7 +76,7 @@ function randomizing(i){
 }
 
 function decodeCarLayout (decimal, totalSeats) { 
-    let bin = bigInt(decimal).toString(2)
+    let bin = bigInt(decimal).toString(2).slice(-totalSeats)
     while (bin.length < totalSeats){
         bin = '0' + bin    
     }

@@ -145,4 +145,15 @@ class TrainDetails extends React.Component{
   
 }
 
+TrainDetails.defaultProps = {
+  train_id: "000",
+  train_number: "0000",
+  train_name: "Шир — Мордор",
+  train_type: "Пригородный поезд",
+  departure_time: "2025-04-06T19:32:00+03:00",
+  stops: "Бри, Ривенделл, Рохан",
+  free_seats: 0,
+  isExpanded: false
+}
+
 export default TrainDetails

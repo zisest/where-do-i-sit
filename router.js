@@ -4,6 +4,7 @@ const express = require('express')
 const router = express.Router()
 
 const fetch = require('node-fetch')
+const bigInt = require('big-integer')
 const path = require('path')
 
 const environment = process.env.NODE_ENV
@@ -118,29 +119,37 @@ router.get('/api/getDetails', (req, res) => {
 
 
 //Receiving requests from Arduino
-// http://trains.zisest.ru/api/updateSeats?key=&layout=3&car=1
+// http://trains.zisest.ru/api/updateSeats?key=&layout=3&car=1&id=237dyh3ud
 router.get('/api/updateSeats', (req, res) => {
     console.log('api/updateSeats')
-    if (!'12345'.includes(req.query.car) || req.query.layout < 0 || req.query.layout > 255 || !Number.isInteger(+req.query.layout))
+
+    const FULL_LAYOUTS = { // when all seats are taken
+        67: bigInt('147573952589676412927'),
+        103: bigInt('10141204801825835211973625643007')
+    }
+
+    try {
+        let queryLayout = bigInt(req.query.layout)
+    } catch(err) {
         res.status(400).send('Bad request')
+    }
+    if (!'12345'.includes(req.query.car) || queryLayout.isNegative() || queryLayout.greater(FULL_LAYOUTS[carSizes[req.query.car]]))
+        res.status(400).send('Bad request')
+
     if (req.query.key === process.env.ACCESS_KEY){
-        Train.findOne({id: req.query.id}).then( doc => {
+        Train.findOne({id: req.query.id}).then(doc => {
             console.log(doc)
-            let car = doc.cars[req.query.car - 1]
-            let layout = car.layout
-            let binLayout = decodeCarLayout(layout, carSizes[+req.query.car])
-            let binChanges = decodeCarLayout(req.query.layout, 8).map(digit => +!+digit)
-            let newLayout = encodeCarLayout([...binChanges, ...binLayout.slice(8)])
-            let diff = binLayout.slice(0, 8).reduce((acc, curr, i) => {
-                return acc + (curr - binChanges[i])
-            }, 0)
+            let car = doc.cars[req.query.car - 1]            
+            let prevLayout = decodeCarLayout(car.layout, carSizes[+req.query.car])
+            let newLayout = decodeCarLayout(queryLayout, carSizes[+req.query.car])
+            let diff = newLayout.reduce((acc, curr, i) => acc + curr - prevLayout[i], 0)            
             doc.free_seats += diff
             car.free_seats += diff
-            car.layout = newLayout
+            car.layout = queryLayout.toString()
             doc.save(() => console.log('saved'))
         })
         .catch(err => { throw err }) 
-        res.send(JSON.stringify({train: req.query.id, car_num: req.query.car, layout: req.query.layout}))      
+        res.send(JSON.stringify({train: req.query.id, car_num: req.query.car, layout: queryLayout.toString()}))      
     } else {        
         res.status(403).send('Access denied')
     }   
