@@ -2,18 +2,15 @@
 <img src="https://zisest.ru/files/where-do-i-sit-logo.png" align="right"
      title="Where Do I Sit? logo" width="197" height="52">
 
-[![site](https://img.shields.io/website?url=https%3A%2F%2Ftrains.zisest.ru)](https://trains.zisest.ru/)
 
 Проект для курса [IoT академии Samsung](https://www.samsung.com/ru/iotacademy/) в СПбГУ (2020). 
 
 ## О проекте
-[![](https://zisest.ru/files/where-do-i-sit.gif)](https://trains.zisest.ru/)
+[](https://zisest.ru/files/where-do-i-sit.gif)
 
 В электропоездах возникает проблема неравномерного распределения пассажиров, так как отсутствует возможность узнать, где в электропоезде есть необходимое количество свободных мест.
 Данная система позволит пассажирам быстрее находить свободное место в электропоезде, что обеспечит более равномерное распределение пассажиров по поезду, упростит проверку билетов и сделает поездки комфортнее. Более подробная информация в [презентации](https://bit.ly/where-do-i-sit).
 
-## Демо
-Развернутое веб-приложение доступно по ссылке: [trains.zisest.ru](https://trains.zisest.ru).
 
 ## Воссоздание прототипа
 ### Железо
