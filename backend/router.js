@@ -8,7 +8,7 @@ const bigInt = require('big-integer')
 const path = require('path')
 
 const environment = process.env.NODE_ENV
-const rootPath = (environment === 'development') ? path.join(__dirname, 'client','public') : path.join(__dirname, 'client','build')
+const rootPath = (environment === 'development') ? path.join(__dirname, '..', 'client','public') : path.join(__dirname, '..', 'client','build')
 
 const  { fillTrain, randomizing, encodeCarLayout, decodeCarLayout, carSizes } = require('./filler')
 const { Train, Station } = require('./mongo')
@@ -64,8 +64,9 @@ router.get('/api/getTimetable', (req, res) => {
             { method: 'GET', headers: { 'Authorization': process.env.YANDEX_API_KEY }})
         .then(yandexRes => yandexRes.json())
         .then(yandexRes => {    
-            console.log(yandexRes)
+            // console.log(yandexRes)
             if (yandexRes.error !== undefined) throw yandexRes.error.text           
+            // console.log(yandexRes.schedule.filter(t => Date.parse(t.departure) > currentTS).length)
             let upcoming = yandexRes.schedule.filter(t => Date.parse(t.departure) > currentTS)
             let requested = upcoming.filter((t, index) => (index >= fromIndex) && (index <= toIndex))     
             let queries = requested.map((t, i) => {
@@ -78,10 +79,10 @@ router.get('/api/getTimetable', (req, res) => {
                         departure_time: t.departure,
                         stops: t.stops
                     } 
-                    if(!doc) Train.create(fillTrain(t.thread.uid, randomizing(i)), (err, newDoc) => {
-                        if (err) throw err
-                        return {...train, free_seats: newDoc.free_seats}
-                    })
+                    if(!doc) {
+                        return Train.create(fillTrain(t.thread.uid, randomizing(i)))
+                        .then(newDoc => ({...train, free_seats: newDoc.free_seats}))
+                    }
                     else return {...train, free_seats: doc.free_seats}                           
                 })
             })
@@ -93,7 +94,7 @@ router.get('/api/getTimetable', (req, res) => {
                     toSend.push(stName)
                 }
                 res.send(JSON.stringify(toSend))
-                console.log(JSON.stringify(toSend))
+                // console.log(JSON.stringify(toSend))
             }).catch(err => { throw err })      
         })          
         .catch(err => {
@@ -126,7 +127,7 @@ router.get('/api/updateSeats', (req, res) => {
         res.status(400).send('Bad request')
     if (req.query.key === process.env.ACCESS_KEY){
         Train.findOne({id: req.query.id}).then( doc => {
-            console.log(doc)
+            // console.log(doc)
             let car = doc.cars[req.query.car - 1]
             let layout = car.layout
             let binLayout = decodeCarLayout(layout, carSizes[+req.query.car])

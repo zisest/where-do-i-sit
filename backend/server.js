@@ -13,8 +13,8 @@ const environment = process.env.NODE_ENV
 const routes = require('./router')
 
 // MongoDB
-mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_LOCATION}/test?retryWrites=true&w=majority`, 
-  {dbName: 'wheredoisit', useNewUrlParser: true})
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_LOCATION}}/wheredoisit?retryWrites=true&w=majority`, 
+  { dbName: 'wheredoisit', useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', function() {
