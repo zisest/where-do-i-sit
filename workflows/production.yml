@@ -1,0 +1,33 @@
+name: Deploy to production
+
+on:
+  push:
+    branches: [ release ]
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout deploy-actions repo
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ github.actor }}/deploy-actions
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Manage private key and known_hosts
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        uses: ./manage-keys
+        with:
+          private-key: $PRIVATE_KEY
+          remote-host: $REMOTE_HOST
+
+      - name: Deploy to production
+        uses: ./deploy-prod
+        with:
+          remote-user: ${{ secrets.REMOTE_USER }}
+          remote-host: ${{ secrets.REMOTE_HOST }}
+          proxy-repo-name: ${{ secrets.PROXY_REPO_NAME }}
